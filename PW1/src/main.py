@@ -1,7 +1,13 @@
+import os
 import sys
 import argparse
 import logging
 from pathlib import Path
+
+sys.path.append(os.path.dirname(__file__))
+
+from dataset import Dataset
+from prism import Prism
 
 
 def set_logger(log_file_path, debug=False):
@@ -16,14 +22,21 @@ def set_logger(log_file_path, debug=False):
 
 def parseArgumentsFromCommandLine():
     parser = argparse.ArgumentParser("")
-    parser.add_argument('-l', "--logger", type=Path, default="log.log")
+    parser.add_argument('-l', "--logger", type=Path, default="log/log.log")
+    parser.add_argument('-i', "--dataset", type=Path, required=True)
     return parser.parse_args()
 
 
 class Main:
     def __init__(self, args):
-        logging.info("__init__")
-        logging.info(args)
+        self.args = args
+        self.show_parameters(args)
+
+    @staticmethod
+    def show_parameters(parameters):
+        logging.info("Parameters:")
+        for label, value in parameters.__dict__.items():
+            logging.info(f"\t{label}: {value}")
 
     def __call__(self, *args, **kwargs):
         logging.info("__call__")
