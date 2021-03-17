@@ -1,3 +1,5 @@
+#!/bin/sh
+
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/tic-tac-toe/tic-tac-toe.data -O data/tic-tac-toe.data
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/tic-tac-toe/tic-tac-toe.names -O data/tic-tac-toe.names
 
