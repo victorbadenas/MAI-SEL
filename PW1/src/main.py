@@ -42,8 +42,11 @@ class Main:
         for label, value in parameters.__dict__.items():
             logging.info(f"\t{label}: {value}")
 
-    def __call__(self, *args, **kwargs):
-        logging.info("__call__")
+    def __call__(self):
+        Y = self.dataset['target']
+        X = self.dataset.drop('target', axis=1)
+        prism = Prism()
+        prism.fit(X, Y)
 
 
 if __name__ == "__main__":

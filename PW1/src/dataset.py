@@ -55,3 +55,10 @@ class Dataset:
 
     def __getitem__(self, index):
         return self.data[index]
+
+    @property
+    def columns(self):
+        return self.data.columns
+
+    def drop(self, *args, **kwargs):
+        return self.data.drop(*args, **kwargs)
