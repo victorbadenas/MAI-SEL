@@ -9,12 +9,16 @@ import pandas as pd
 class Rule:
     def __init__(self, shape, class_):
         self.antecedent = np.full(shape, -1, dtype=np.int)
-        self.availableAttributes = np.where(self.antecedent == -1)[0]
+        self.__computeAvailableAttributes()
         self.class_ = class_
         self.precision = 0.0
+        self.coverage = 0.0
+
+    def __computeAvailableAttributes(self):
+        self.availableAttributes = np.where(self.antecedent == -1)[0]
 
     def isPerfect(self):
-        return self.precision != 1.0
+        return self.precision == 1.0
 
     def areAvailableAttributes(self):
         return len(self.availableAttributes) != 0
@@ -22,14 +26,43 @@ class Rule:
     def getAvailableAttributes(self):
         return self.availableAttributes
 
-    def evaluate(self, data):
-        pass
+    def getCoveredInstances(self, X):
+        m1 = X == self.antecedent  # check attributes that match
+        m2 = self.antecedent == -1  # attributes excluded
+        return np.all(m1 + m2, axis=1)  # or and check which instances are covered by the rule
 
-    def __setattr__(self, index, value):
+    def evaluate(self, X, Y):
+        coveredInstances = self.getCoveredInstances(X)
+        self.coverage = np.sum(coveredInstances)/X.shape[0]
+        self.accuracy = np.sum((coveredInstances) * (Y == self.class_))/X.shape[0]
+
+    def __setitem__(self, index, value):
         self.antecedent[index] = value
+        self.__computeAvailableAttributes()
+
+    def __gettem__(self, index):
+        return self.antecedent[index]
 
     def copy(self):
         return copy.deepcopy(self)
+
+    def __str__(self):
+        if len(self.antecedent) == len(self.availableAttributes):
+            return "Empty Rule"
+        usedAttributes = np.where(self.antecedent != -1)[0]
+        string_ = "Rule: IF"
+        for attr in usedAttributes:
+            string_ += f" {int(attr)} IS {int(self.antecedent[attr])} AND"
+        else:
+            string_ = string_[:-3] + f"THEN {int(self.class_)}"
+        return string_
+
+    def __repr__(self):
+        return str(self)
+
+    def __len__(self):
+        return np.sum(self.antecedent != -1)
+
 
 class Prism:
     def __init__(self):
@@ -49,27 +82,46 @@ class Prism:
         return self.predict(X)
 
     def _fit(self, X, Y):
-        self.allPossibleValues = list(map(lambda idx: np.unique(X[:,idx]), range(X.shape[1])))
+        allPossibleValues = list(map(lambda idx: np.unique(X[:,idx]), range(X.shape[1])))
         self.rules = list()
         for class_ in np.unique(Y):
-            E = X[Y==class_]
+            logging.debug(f"Finding rules for class: {class_}")
+            E = X.copy()
             while E.size != 0:
+                logging.debug(f"E.shape {E.shape}")
+
+                # build rule
                 R = Rule(X.shape[1], class_)
-                while not R.isPerfect(None) and R.areAvailableAttributes():
-                    Rop = R.copy()
+                while not R.isPerfect() and R.areAvailableAttributes():
+                    # Rop = R.copy()
+                    # bestPrecision = 0.0
+                    allRules = list()
                     for attribute in R.getAvailableAttributes():
-                        possibleValues = self.possibleValues[attribute]
-                        for value in possibleValues:
-                            Rav = R.copy()
+                        for value in allPossibleValues[attribute]:
+                            Rav = Rule(X.shape[-1], class_)
                             Rav[attribute] = value
-                            R.evaluate()
-                            if Rav.precision > Rop.precision:
+                            Rav.evaluate(X, Y)
+                            allRules.append((attribute, value, Rav))
+
+                    # Rop = self._getBestRule()
+                    Rop = allRules[0]
+                    for Rav in allRules[1:]:
+                        att, val, rule = Rav
+                        if Rop[2].accuracy < rule.accuracy:
+                            Rop = Rav
+                        elif Rop[2].accuracy == rule.accuracy:
+                            if Rop[2].coverage < rule.coverage:
                                 Rop = Rav
-                    R = Rop
+
+                    R[Rop[0]] = Rop[1]
+                logging.debug(R)
                 E = self.__removeCoveredInstances(E, R)
+                logging.info(f"Added Rule: {R}")
                 self.rules.append(R)
         return self
 
+    def __removeCoveredInstances(self, E, R):
+        return E[~R.getCoveredInstances(E)]
 
     def __validate_data(self, X, Y):
         X = self.__safe_conversion(X)
