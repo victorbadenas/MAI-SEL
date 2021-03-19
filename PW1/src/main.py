@@ -25,7 +25,6 @@ def parseArgumentsFromCommandLine():
     parser.add_argument('-l', "--logger", type=Path, default="log/log.log")
     parser.add_argument('-i', "--dataset_path", type=Path, required=True)
     parser.add_argument('-d', "--debug", action="store_true", default=False)
-    parser.add_argument('-m', "--conversion_mode", type=str, default='global')
     return parser.parse_args()
 
 
@@ -33,7 +32,7 @@ class Main:
     def __init__(self, args):
         self.args = args
         self.show_parameters(args)
-        self.dataset = Dataset(self.args.dataset_path, mode=self.args.conversion_mode)
+        self.dataset = Dataset(self.args.dataset_path)
         logging.debug(self.dataset)
 
     @staticmethod
