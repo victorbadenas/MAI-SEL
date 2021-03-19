@@ -1,25 +1,17 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
-
-GLOBAL = 'global'
-COLUMNS = 'columns'
-MODES = [GLOBAL, COLUMNS]
-
 
 class Dataset:
-    def __init__(self, datasetPath, mode=GLOBAL):
+    def __init__(self, datasetPath):
         self.datasetPath = datasetPath
-        self.mode = mode
         self.checkArgs()
         self.data = self.loadDataset(datasetPath)
-        self.data.columns = self.data.columns.to_list()[:-1] + ['target']
+        self.targetLabel = self.columns[-1]
 
     def checkArgs(self):
         assert self.datasetPath.exists(), f'File {self.datasetPath} does not exist'
-        assert self.mode, f'Mode {mode} is not supported. Options: {MODES}'
 
     def loadDataset(self, datasetPath):
-        return pd.read_csv(datasetPath, header=None)
+        return pd.read_csv(datasetPath)
 
     def __str__(self):
         return str(self.data)
@@ -30,9 +22,21 @@ class Dataset:
     def __getitem__(self, index):
         return self.data[index]
 
+    def drop(self, *args, **kwargs):
+        return self.data.drop(*args, **kwargs)
+
     @property
     def columns(self):
         return self.data.columns
 
-    def drop(self, *args, **kwargs):
-        return self.data.drop(*args, **kwargs)
+    @property
+    def inputData(self):
+        return self.data.drop(self.targetLabel, axis=1)
+
+    @property
+    def targetData(self):
+        return self.data[self.targetLabel]
+
+    @property
+    def name(self):
+        return self.datasetPath.stem
