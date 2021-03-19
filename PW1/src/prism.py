@@ -1,11 +1,10 @@
 import os
 import sys
 import copy
-from itertools import filterfalse
 import warnings
 import logging
-import numpy as np
 import pandas as pd
+from itertools import filterfalse
 from rule import Rule
 
 
