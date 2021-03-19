@@ -47,6 +47,7 @@ class Main:
         X = self.dataset.drop('target', axis=1)
         prism = Prism()
         prism.fit(X, Y)
+        logging.debug('\n'.join(map(str, prism.rules)))
 
 
 if __name__ == "__main__":

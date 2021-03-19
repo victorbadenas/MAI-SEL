@@ -1,78 +1,23 @@
 import os
 import sys
 import copy
+from itertools import filterfalse
 import warnings
 import logging
 import numpy as np
 import pandas as pd
-
-class Rule:
-    def __init__(self, shape, class_):
-        self.antecedent = np.full(shape, -1, dtype=np.int)
-        self.__computeAvailableAttributes()
-        self.class_ = class_
-        self.precision = 0.0
-        self.coverage = 0.0
-
-    def __computeAvailableAttributes(self):
-        self.availableAttributes = np.where(self.antecedent == -1)[0]
-
-    def isPerfect(self):
-        return self.precision == 1.0
-
-    def areAvailableAttributes(self):
-        return len(self.availableAttributes) != 0
-
-    def getAvailableAttributes(self):
-        return self.availableAttributes
-
-    def getCoveredInstances(self, X):
-        m1 = X == self.antecedent  # check attributes that match
-        m2 = self.antecedent == -1  # attributes excluded
-        return np.all(m1 + m2, axis=1)  # or and check which instances are covered by the rule
-
-    def evaluate(self, X, Y):
-        coveredInstances = self.getCoveredInstances(X)
-        self.coverage = np.sum(coveredInstances)/X.shape[0]
-        self.accuracy = np.sum((coveredInstances) * (Y == self.class_))/X.shape[0]
-
-    def __setitem__(self, index, value):
-        self.antecedent[index] = value
-        self.__computeAvailableAttributes()
-
-    def __gettem__(self, index):
-        return self.antecedent[index]
-
-    def copy(self):
-        return copy.deepcopy(self)
-
-    def __str__(self):
-        if len(self.antecedent) == len(self.availableAttributes):
-            return "Empty Rule"
-        usedAttributes = np.where(self.antecedent != -1)[0]
-        string_ = "Rule: IF"
-        for attr in usedAttributes:
-            string_ += f" {int(attr)} IS {int(self.antecedent[attr])} AND"
-        else:
-            string_ = string_[:-3] + f"THEN {int(self.class_)}"
-        return string_
-
-    def __repr__(self):
-        return str(self)
-
-    def __len__(self):
-        return np.sum(self.antecedent != -1)
+from rule import Rule
 
 
 class Prism:
     def __init__(self):
-        pass
+        self.reset()
+        self._target_attribute = 'target'
+        self._labels = []
 
     def fit(self, X, Y):
-        X, Y = self.__validate_data(X, Y)
-        logging.debug(f"X Type: ({type(X)},{X.dtype}), X shape:{X.shape}")
-        logging.debug(f"Y Type: ({type(Y)},{Y.dtype}), Y shape:{Y.shape}")
-        return self._fit(X, Y)
+        data = self.__validate_data(X, Y)
+        return self._fit(data)
 
     def predict(self, X):
         pass
@@ -81,75 +26,101 @@ class Prism:
         self.fit(X, Y)
         return self.predict(X)
 
-    def _fit(self, X, Y):
-        allPossibleValues = list(map(lambda idx: np.unique(X[:,idx]), range(X.shape[1])))
-        self.rules = list()
-        for class_ in np.unique(Y):
-            logging.debug(f"Finding rules for class: {class_}")
-            E = X.copy()
-            while E.size != 0:
-                logging.debug(f"E.shape {E.shape}")
+    def reset(self):
+        self._rules = []
 
-                # build rule
-                R = Rule(X.shape[1], class_)
-                while not R.isPerfect() and R.areAvailableAttributes():
-                    # Rop = R.copy()
-                    # bestPrecision = 0.0
-                    allRules = list()
-                    for attribute in R.getAvailableAttributes():
-                        for value in allPossibleValues[attribute]:
-                            Rav = Rule(X.shape[-1], class_)
-                            Rav[attribute] = value
-                            Rav.evaluate(X, Y)
-                            allRules.append((attribute, value, Rav))
-
-                    # Rop = self._getBestRule()
-                    Rop = allRules[0]
-                    for Rav in allRules[1:]:
-                        att, val, rule = Rav
-                        if Rop[2].accuracy < rule.accuracy:
-                            Rop = Rav
-                        elif Rop[2].accuracy == rule.accuracy:
-                            if Rop[2].coverage < rule.coverage:
-                                Rop = Rav
-
-                    R[Rop[0]] = Rop[1]
-                logging.debug(R)
-                E = self.__removeCoveredInstances(E, R)
-                logging.info(f"Added Rule: {R}")
-                self.rules.append(R)
+    def _fit(self, data):
+        self.reset()
+        for class_ in self.labels:
+            E = data[:]
+            while self.__class_in_instances(E, class_):
+                rule = self.__build_rule(class_, E)
+                self.rules.append(rule)
+                E = self.__remove_covered_instances(E, rule)
         return self
 
-    def __removeCoveredInstances(self, E, R):
-        return E[~R.getCoveredInstances(E)]
+    def __build_rule(self, class_, instances):
+        rule = Rule(class_, self._attributes, self._target_attribute, initial_coverage=len(instances))
+        E = instances[:]
+        while not rule.is_perfect() and rule.coverage > 1:
+            allRules = []
+            for attribute in rule.unused_attributes:
+                for value in self.__get_possible_values(E, attribute):
+                    rav = Rule(class_, self._attributes, self._target_attribute)
+                    rav[attribute] = value
+                    rav.evaluate(E)
+                    allRules.append(rav)
+            bestRule = max(allRules)
+            rule.extend(bestRule)
+            E = rule.apply(E)
+            rule.evaluate(E)
+        return rule
+
+    def __class_in_instances(self, instances, class_):
+        # loop over instances and see if any matches the class checked
+        return any(map(lambda x: x[self._target_attribute] == class_, instances))
+
+    def __get_possible_values(self, instances, attr):
+        # returns possible values for a given attributes
+        values = set()
+        for instance in instances:
+            if instance[attr] not in values:
+                values.add(instance[attr])
+        return values
+
+    # This method remove all instances covered by the set of rules
+    def __remove_covered_instances(self, instances, rule):
+        return list(filterfalse(rule.is_covered, instances))
 
     def __validate_data(self, X, Y):
-        X = self.__safe_conversion(X)
-        Y = self.__safe_conversion(Y)
-        if X.ndim != 2:
-            raise ValueError('X must be a 2 dimension array')
-        if Y.ndim != 1:
-            raise ValueError('Y must be a 1d array')
-        if X.shape[0] != Y.shape[0]:
-            raise ValueError(f'inconsistent shapes of X:{X.shape} and Y:{Y.shape}')
-        return X, Y
+        self.__extract_attributes(X)
+        self._labels = self.__extract_labels(Y)
+        data = self.__format_data_to_dict(X, Y)
+        return data
 
-    def __safe_conversion(self, array):
-        if isinstance(array, pd.DataFrame):
-            array = array.to_numpy()
-        elif isinstance(array, pd.Series):
-            array = np.array(array)
-        elif isinstance(array, list):
-            array = np.array(array)
-        elif isinstance(array, np.ndarray):
-            return array
+    def __extract_labels(self, Y):
+        if isinstance(Y, pd.Series):
+            return list(Y.unique())
+        elif isinstance(Y, pd.DataFrame):
+            return self.__extract_labels(Y[Y.columns[0]])
+        raise NotImplementedError
+
+    def __extract_target_attribute(self, Y):
+        if isinstance(Y, pd.Series):
+            self._target_attribute = Y.name
+        elif isinstance(Y, pd.DataFrame):
+            self._target_attribute = Y.columns[0]
         else:
-            TypeError('array should be either a pd.DataFrame, np.ndarray or list of lists')
+            raise NotImplementedError
 
-        if array.dtype != np.int:
-            msg = "Input array is not int, will be casted to int"
-            logging.warning(msg)
-            warnings.warn(msg)
-            array = array.astype(np.int)
+    def __extract_attributes(self, X):
+        if isinstance(X, pd.DataFrame):
+            self._attributes = list(X.columns.astype(str))
+        else:
+            raise NotImplementedError
 
-        return array
+    def __format_data_to_dict(self, X, Y):
+        if isinstance(X, pd.DataFrame):
+            if isinstance(Y, pd.DataFrame):
+                if Y.shape[-1] == 1:
+                    return self.__format_data_to_dict(X, Y[Y.columns[0]])
+                else:
+                    raise ValueError('Wrong dimensions for Y. {Y.shape} is not (n_instances, 1)')
+            elif isinstance(Y, pd.Series):
+                X = pd.concat((X, Y), axis=1)
+                X.columns = X.columns.astype(str)
+                return X.to_dict('records')
+            raise NotImplementedError('currently only supporting pd.DataFrame or pd.series for taget variable')
+        raise TypeError('array should be either a pd.DataFrame')
+
+    @property
+    def rules(self):
+        return self._rules
+
+    @property
+    def attributes(self):
+        return self._attributes
+
+    @property
+    def labels(self):
+        return self._labels
