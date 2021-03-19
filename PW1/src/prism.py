@@ -1,10 +1,12 @@
 import os
 import sys
+import json
 import copy
 import warnings
 import logging
 import pandas as pd
 from itertools import filterfalse
+from pathlib import Path
 from rule import Rule
 
 
@@ -41,7 +43,7 @@ class Prism:
     def __build_rule(self, class_, instances):
         rule = Rule(class_, self._attributes, self._target_attribute, initial_coverage=len(instances))
         E = instances[:]
-        while not rule.is_perfect() and rule.coverage > 1:
+        while not rule.is_perfect() and rule.coverage > 1 and len(rule.unused_attributes) > 0:
             allRules = []
             for attribute in rule.unused_attributes:
                 for value in self.__get_possible_values(E, attribute):
@@ -73,13 +75,19 @@ class Prism:
 
     def __validate_data(self, X, Y):
         self.__extract_attributes(X)
+        self.__extract_target_attribute(Y)
         self._labels = self.__extract_labels(Y)
         data = self.__format_data_to_dict(X, Y)
         return data
 
     def __extract_labels(self, Y):
         if isinstance(Y, pd.Series):
-            return list(Y.unique())
+            labels = list(Y.unique())
+            if hasattr(labels[0], 'dtype'):
+                if labels[0].dtype.kind == 'i':
+                    type_ = int
+                labels = list(map(type_, labels))
+            return labels
         elif isinstance(Y, pd.DataFrame):
             return self.__extract_labels(Y[Y.columns[0]])
         raise NotImplementedError
@@ -123,3 +131,40 @@ class Prism:
     @property
     def labels(self):
         return self._labels
+
+    def save(self, path_to_file):
+        path_to_file = Path(path_to_file)
+        path_to_file.parent.mkdir(parents=True, exist_ok=True)
+        data = self.__dict__.copy()
+        if path_to_file.suffix == '.json':
+            self.save_to_json(path_to_file, data)
+        else:
+            self.save_to_txt(path_to_file)
+
+    def save_to_json(self, path_to_file, data):
+        data['_rules'] = [rule.__dict__ for rule in data['_rules']]
+        with open(path_to_file, 'w') as f:
+            json.dump(data, f, indent=4)
+
+    def save_to_txt(self, path_to_file):
+        with open(path_to_file, 'w') as f:
+            f.write(f'Name:\n\t{path_to_file.name}\n')
+            f.write('Attributes:\n')
+            for att in self._attributes:
+                f.write(f'\t- {att}\n')
+            f.write(f'Labels {self._target_attribute}: {self._labels}\n')
+            f.write('Rules:\n')
+            for rule in self._rules:
+                f.write(f'\t{str(rule)}\n')
+
+    def load(self, path_to_file):
+        with open(path_to_file, 'r') as f:
+            data = json.load(f)
+        for k in self.__dict__:
+            if 'rule' in k:
+                for ruleData in data[k]:
+                    rule = Rule(None, None, None)
+                    rule.from_dict(ruleData)
+                    self._rules.append(rule)
+            elif k in data:
+                setattr(self, k, data[k])

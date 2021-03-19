@@ -114,3 +114,8 @@ class Rule:
         for k in sorted_keys:
             sorted_antecedent[k] = self[k]
         self.antecedent = sorted_antecedent
+
+    def from_dict(self, dict_):
+        for k, v in dict_.items():
+            if k in self.__dict__:
+                setattr(self, k, v)
