@@ -25,8 +25,7 @@ class Rule:
 
     @property
     def unused_attributes(self):
-        used_attributes = self.used_attributes
-        return list(filter(lambda att: att not in used_attributes, self._available_attibutes))
+        return sorted(set(self._available_attibutes) - set(self.used_attributes))
 
     def is_perfect(self):
         return self.accuracy == 1.0
