@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.append(os.path.dirname(__file__))
 
-from dataset import Dataset
+from dataset import PandasDataset
 from prism import Prism
 
 
@@ -34,7 +34,7 @@ class Main:
         self.args = args
         self.show_parameters(args)
         self.output_dir = self.args.output_dir
-        self.dataset = Dataset(self.args.dataset_path)
+        self.dataset = PandasDataset(self.args.dataset_path)
         logging.debug(self.dataset)
 
     @staticmethod
@@ -44,8 +44,8 @@ class Main:
             logging.info(f"\t{label}: {value}")
 
     def __call__(self):
-        X = self.dataset.inputData
-        Y = self.dataset.targetData
+        X = self.dataset.input_data
+        Y = self.dataset.target_data
         prism = Prism()
         prism.fit(X, Y)
         logging.debug('\n'.join(map(str, prism.rules)))
