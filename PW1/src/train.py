@@ -29,7 +29,7 @@ def parseArgumentsFromCommandLine():
     return parser.parse_args()
 
 
-class Main:
+class Trainer:
     def __init__(self, args):
         self.args = args
         self.show_parameters(args)
@@ -60,4 +60,4 @@ class Main:
 if __name__ == "__main__":
     args = parseArgumentsFromCommandLine()
     set_logger(args.logger, debug=args.debug)
-    Main(args)()
+    Trainer(args)()
