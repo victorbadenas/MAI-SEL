@@ -11,10 +11,10 @@ from rule import Rule
 
 
 class Prism:
-    def __init__(self):
+    def __init__(self, headers=None):
         self.reset()
         self._target_attribute = 'target'
-        self._labels = []
+        self._labels = headers
 
     def fit(self, X, Y):
         data = self.__validate_data(X, Y)
