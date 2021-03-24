@@ -27,6 +27,10 @@ class Rule:
     def unused_attributes(self):
         return sorted(set(self._available_attibutes) - set(self.used_attributes))
 
+    @property
+    def label(self):
+        return self.class_
+
     def is_perfect(self):
         return self.accuracy == 1.0
 

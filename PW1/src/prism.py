@@ -15,13 +15,21 @@ class Prism:
         self.reset()
         self._target_attribute = 'target'
         self._labels = headers
+        self._attributes = None
 
     def fit(self, X, Y):
         data = self.__validate_data(X, Y)
         return self._fit(data)
 
     def predict(self, X):
-        pass
+        data = self.__validate_inference_data(X)
+        predicted_labels = len(data) * [None]
+        for idx, item in enumerate(data):
+            for rule in self.rules:
+                if rule.is_covered(item):
+                    predicted_labels[idx] = rule.label
+                    break
+        return predicted_labels
 
     def fit_predict(self, X, Y):
         self.fit(X, Y)
@@ -79,6 +87,13 @@ class Prism:
         self._labels = self.__extract_labels(Y)
         data = self.__format_data_to_dict(X, Y)
         return data
+
+    def __validate_inference_data(self, X):
+        if isinstance(X, pd.DataFrame):
+            X.columns = X.columns.astype(str)
+            return X.to_dict('records')
+        else:
+            raise NotImplementedError
 
     def __extract_labels(self, Y):
         if isinstance(Y, pd.Series):
@@ -161,7 +176,7 @@ class Prism:
         with open(path_to_file, 'r') as f:
             data = json.load(f)
         for k in self.__dict__:
-            if 'rule' in k:
+            if '_rules' in k:
                 for ruleData in data[k]:
                     rule = Rule(None, None, None)
                     rule.from_dict(ruleData)
