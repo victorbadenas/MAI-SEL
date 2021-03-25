@@ -1,11 +1,20 @@
+AND = 'AND'
+OR = 'OR'
+TYPES = [AND, OR]
+
 class Rule:
-    def __init__(self, class_, available_attibutes, target_attribute, initial_coverage=0.0):
+    def __init__(self, class_=None, available_attibutes=None, target_attribute=None, initial_coverage=0.0, type_='AND'):
         self._available_attibutes = available_attibutes
         self._target_attribute = target_attribute
+        self.__type = type_
         self.antecedent = {}
         self.class_ = class_
         self.p = 0.0
         self.t = initial_coverage
+        self.__validate_args()
+
+    def __validate_args(self):
+        assert self.__type in TYPES, f"{self.__type} not supported. Supported types: {TYPES}"
 
     @property
     def stats(self):
@@ -61,9 +70,22 @@ class Rule:
         # iterate over instances and filter the matched ones
         return list(filter(self.__instance_match, instances))
 
-    def __instance_match(self, instance):
+    def __instance_match(self, *args, **kwargs):
+        # check if all requirements in the antecedent are met
+        if self.__type is AND:
+            return self.__instance_match_and(*args, **kwargs)
+        elif self.__type is OR:
+            return self.__instance_match_or(*args, **kwargs)
+        else:
+            raise ValueError('type not understood')
+
+    def __instance_match_and(self, instance):
         # check if all requirements in the antecedent are met
         return all([instance[k] == v for k, v in self.antecedent.items()])
+
+    def __instance_match_or(self, instance):
+        # check if all requirements in the antecedent are met
+        return any([instance[k] == v for k, v in self.antecedent.items()])
 
     def __compute_correct(self, instances):
         # iterate over instances and filter the ones where the class matches
@@ -103,7 +125,7 @@ class Rule:
         self.sort()
         formatted_rule = "IF"
         for k, v in self.items():
-            formatted_rule += f" {k} IS {v} AND"
+            formatted_rule += f" {k} IS {v} {self.__type}"
         else:
             formatted_rule = formatted_rule[:-4] + f" THEN {self._target_attribute} IS {self.class_}"
         return formatted_rule
