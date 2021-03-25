@@ -43,12 +43,26 @@ class Trainer:
         for label, value in parameters.__dict__.items():
             logging.info(f"\t{label}: {value}")
 
-    def __call__(self):
+    def __call__(self, *args, **kwargs):
+        return self.main(*args, **kwargs)
+
+    def main(self):
         X = self.dataset.input_data
         Y = self.dataset.target_data
+
         prism = Prism()
-        prism.fit(X, Y)
+
+        y = prism.fit_predict(X, Y)
+
         logging.debug('\n'.join(map(str, prism.rules)))
+
+        accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
+        coverage = sum(1 for item in y if y is not None)/len(y)
+
+        logging.info(f'Inference results on training data for {self.dataset.dataset_path}')
+        logging.info(f'accuracy: {accuracy*100:.2f}%')
+        logging.info(f'coverage: {coverage*100:.2f}%')
+
         if self.output_dir is not None:
             json_model_path = self.output_dir / (self.dataset.name + '.json')
             txt_model_path = self.output_dir / (self.dataset.name + '.rules')
