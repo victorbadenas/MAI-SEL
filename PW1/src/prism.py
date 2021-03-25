@@ -169,8 +169,9 @@ class Prism:
                 f.write(f'\t- {att}\n')
             f.write(f'Labels {self._target_attribute}: {self._labels}\n')
             f.write('Rules:\n')
-            for rule in self._rules:
-                f.write(f'\t{str(rule)}\n')
+            rules = sorted(self.rules, reverse=True)
+            for rule in rules:
+                f.write(f'\t{str(rule)}\t({rule.accuracy}, {rule.coverage})\n')
 
     def load(self, path_to_file):
         with open(path_to_file, 'r') as f:
