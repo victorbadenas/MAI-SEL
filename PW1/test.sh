@@ -6,7 +6,7 @@ for fullfile in data/*; do
     extension="${filename##*.}"
     filename="${filename%.*}"
 
-    if [ "$extension" != "test" ]; then
-        ./dist/train/train -i $fullfile -f models/ -l log/$filename.$extension.log
+    if [ "$extension" = "test" ]; then
+        ./dist/test/test -i $fullfile -r models/$filename.rules
     fi
 done
