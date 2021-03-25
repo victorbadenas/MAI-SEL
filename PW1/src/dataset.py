@@ -52,6 +52,8 @@ class PandasDataset(BaseDataset):
     def __init__(self, dataset_path):
         super(PandasDataset, self).__init__(dataset_path)
         self.data = self.load_dataset(dataset_path)
+        self.data = self.data.astype(str)
+        self.data.columns = list(map(lambda x: x.replace(' ', '_'), self.data.columns))
         self.columns_ = self.data.columns
         self.target_label = self.columns[-1]
 
