@@ -154,24 +154,18 @@ class Prism:
         if path_to_file.suffix == '.json':
             self.save_to_json(path_to_file, data)
         else:
-            self.save_to_txt(path_to_file)
+            self.save_rules_to_txt(path_to_file)
 
     def save_to_json(self, path_to_file, data):
         data['_rules'] = [rule.__dict__ for rule in data['_rules']]
         with open(path_to_file, 'w') as f:
             json.dump(data, f, indent=4)
 
-    def save_to_txt(self, path_to_file):
+    def save_rules_to_txt(self, path_to_file):
         with open(path_to_file, 'w') as f:
-            f.write(f'Name:\n\t{path_to_file.name}\n')
-            f.write('Attributes:\n')
-            for att in self._attributes:
-                f.write(f'\t- {att}\n')
-            f.write(f'Labels {self._target_attribute}: {self._labels}\n')
-            f.write('Rules:\n')
             rules = sorted(self.rules, reverse=True)
             for rule in rules:
-                f.write(f'\t{str(rule)}\t({rule.accuracy}, {rule.coverage})\n')
+                f.write(f'{str(rule)}\t({rule.accuracy}, {rule.coverage})\n')
 
     def load(self, path_to_file):
         with open(path_to_file, 'r') as f:
