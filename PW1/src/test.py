@@ -7,7 +7,8 @@ from pathlib import Path
 sys.path.append(os.path.dirname(__file__))
 
 from dataset import PandasDataset
-from prism import Prism
+# from prism import Prism
+from rule_interpreter import RuleInterpreter
 
 
 def set_logger(log_file_path, debug=False):
@@ -48,14 +49,13 @@ class Inference:
     def __call__(self):
         X = self.dataset.input_data
         Y = self.dataset.target_data
-        prism = Prism()
 
         logging.info(f'loading rules from {self.rules_path}')
-        prism.load(self.rules_path)
+        ri = RuleInterpreter(self.rules_path)
         logging.info(f'rules loaded successfully')
 
         logging.info('inferring')
-        y = prism.predict(X)
+        y = ri.predict(X)
         logging.info('infered!')
 
         accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
