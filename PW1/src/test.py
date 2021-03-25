@@ -23,7 +23,7 @@ def set_logger(log_file_path, debug=False):
 
 def parseArgumentsFromCommandLine():
     parser = argparse.ArgumentParser("")
-    parser.add_argument('-l', "--logger", type=Path, default="log/log.log")
+    parser.add_argument('-l', "--logger", type=Path, default="log/test.log")
     parser.add_argument('-r', "--rules_path", type=Path, required=True)
     parser.add_argument('-i', "--dataset_path", type=Path, required=True)
     parser.add_argument('-d', "--debug", action="store_true", default=False)
