@@ -1,0 +1,28 @@
+\section{Introduction}
+
+The PRISM\cite{cendrowska1987prism} algorithm is a rule inducing procedure which tries to fit the data at a 100\% accuracy. This fact means that PRISM leads to overfitting the training data very easily. The main concept behind the algorithm is to extract the rule with highest accuracy and coverage infered from the data that is not covered by any other rule previously infered.
+
+\section{Disadvantages}
+
+\begin{enumerate}
+    \item Cannot handle missing values
+    \item Floating point values (it can handle integer values or quantized numerical attributes)
+\end{enumerate}
+
+\section{Pseudo Code}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+    \KwResult{Rules}
+    initialization\;
+    \While{While condition}{
+        instructions\;
+        \eIf{condition}{
+            instructions1\;
+            instructions2\;
+        }{
+            instructions3\;
+        }
+}
+\caption{PRISM}
+\end{algorithm}
