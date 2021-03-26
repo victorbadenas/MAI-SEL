@@ -40,34 +40,43 @@ class TrainTestSplitter:
         self.dataset = PandasDataset(self.args.dataset_path)
         logging.debug(self.dataset)
         self.unique_labels = self.dataset.target_data.unique()
-    #     self.label_dist = self.get_data_distribution()
-
-    # def get_data_distribution(self):
-    #     labels = self.dataset.target_data
-    #     labels_unique, labels_count = np.unique(labels, return_counts=True)
-    #     labels_count = labels_count / len(labels)
-    #     label_dist = dict(zip(labels_unique, labels_count))
-    #     return label_dist
 
     def __call__(self, *args, **kwargs):
-        self.split_dataset()
+        train_data, test_data = self.split_dataset()
         if self.save:
-            self.save_splits()
+            self.save_splits(train_data, test_data)
 
     def split_dataset(self):
+        logging.info(f'Splitting {self.dataset.dataset_path} data')
         train_data = pd.DataFrame(columns=self.dataset.columns)
         test_data = pd.DataFrame(columns=self.dataset.columns)
-        for cls in self.unique_labels:
-            cls_data = self.dataset[self.dataset.target_data == cls]
-            indexes = cls_data.index
-            train_items_index = np.random.choice(indexes, int(self.args.train_perc*len(indexes)), replace=False)
-            test_items_index = sorted(set(indexes) - set(train_items_index))
-            train_data = pd.concat((train_data, cls_data.iloc[train_items_index]))
-            test_data = pd.concat((train_data, cls_data.iloc[test_items_index]))
-            pass
 
-    def save_splits(self):
-        pass
+        for class_ in self.unique_labels:
+            logging.info(f'extracting splits for class {class_}')
+            cls_data = self.dataset[self.dataset.target_data == class_]
+            indexes = cls_data.index
+            train_items_index = np.random.choice(len(indexes), int(self.args.train_perc*len(indexes)), replace=False)
+            test_items_index = sorted(set(range(len(indexes))) - set(train_items_index))
+            train_data = pd.concat((train_data, cls_data.iloc[train_items_index]))
+            test_data = pd.concat((test_data, cls_data.iloc[test_items_index]))
+
+        train_data.sort_index(inplace=True)
+        test_data.sort_index(inplace=True)
+        logging.info(f'obtained splits: train->{train_data.shape[0]}, test->{test_data.shape[0]}')
+        return train_data, test_data
+
+    def save_splits(self, train_data, test_data):
+        train_path = self.dataset.dataset_path.with_suffix('.train')
+        test_path = self.dataset.dataset_path.with_suffix('.test')
+        logging.info(f'saving files to {train_path} and {test_path}')
+        self.save_csv(train_data, train_path)
+        self.save_csv(test_data, test_path)
+
+    @staticmethod
+    def save_csv(df:pd.DataFrame, path:Path):
+        if path.exists():
+            logging.warning(f'overwriting existing file {path}')
+        df.to_csv(path, index=False)
 
 
 if __name__ == "__main__":
