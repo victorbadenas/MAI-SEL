@@ -36,5 +36,4 @@ dependencies:
     - six==1.15.0
     - sklearn==0.0
     - threadpoolctl==2.1.0
-prefix: /home/victorbadenas/anaconda3/envs/sel3.9
 
