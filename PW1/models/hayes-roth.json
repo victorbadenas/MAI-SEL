@@ -1,0 +1,730 @@
+{
+    "_rules": [
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "1",
+                "marital_status": "2"
+            },
+            "class_": "1",
+            "p": 10,
+            "t": 10
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "2",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 10,
+            "t": 10
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 10,
+            "t": 10
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "1",
+                "hobby": "2"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "3",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "marital_status": "3"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "1",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "1",
+                "marital_status": "3"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "hobby": "1",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 2,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "hobby": "3",
+                "marital_status": "2"
+            },
+            "class_": "1",
+            "p": 2,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "hobby": "2",
+                "marital_status": "3"
+            },
+            "class_": "1",
+            "p": 2,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "hobby": "2",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 2,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "hobby": "1",
+                "marital_status": "2"
+            },
+            "class_": "1",
+            "p": 2,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "hobby": "3",
+                "marital_status": "3"
+            },
+            "class_": "1",
+            "p": 2,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "hobby": "3",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "hobby": "2",
+                "marital_status": "2"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "hobby": "1",
+                "marital_status": "3"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "2",
+                "marital_status": "1"
+            },
+            "class_": "2",
+            "p": 10,
+            "t": 10
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 10,
+            "t": 10
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "2",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 10,
+            "t": 10
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "3",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "marital_status": "3"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "3",
+                "hobby": "1"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "3",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "2",
+                "marital_status": "3"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "hobby": "3",
+                "marital_status": "1"
+            },
+            "class_": "2",
+            "p": 2,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "hobby": "2",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 2,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "hobby": "1",
+                "marital_status": "3"
+            },
+            "class_": "2",
+            "p": 2,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "hobby": "2",
+                "marital_status": "1"
+            },
+            "class_": "2",
+            "p": 2,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "hobby": "1",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 2,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "hobby": "3",
+                "marital_status": "3"
+            },
+            "class_": "2",
+            "p": 2,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
+                "educational_level": "2",
+                "hobby": "1",
+                "marital_status": "1"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "hobby": "3",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "2",
+                "educational_level": "1",
+                "hobby": "2",
+                "marital_status": "3"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "4"
+            },
+            "class_": "3",
+            "p": 12,
+            "t": 12
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "educational_level": "4"
+            },
+            "class_": "3",
+            "p": 10,
+            "t": 10
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "marital_status": "4"
+            },
+            "class_": "3",
+            "p": 8,
+            "t": 8
+        }
+    ],
+    "_target_attribute": "class",
+    "_labels": [
+        "1",
+        "2",
+        "3"
+    ],
+    "_attributes": [
+        "hobby",
+        "age",
+        "educational_level",
+        "marital_status"
+    ]
+}
