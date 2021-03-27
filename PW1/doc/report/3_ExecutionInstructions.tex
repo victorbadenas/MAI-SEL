@@ -1,0 +1,100 @@
+In this chapter we will discuss the execution instructions of the code. The project was developed in \href{https://docs.python.org/3/whatsnew/3.9.html}{Python3.9} however, it's compatible with python3.6-3.9. The requirements can be found in the \path{./requirements.txt}. The code has been compiled to be able to run it as an executable without installing the dependancies with \href{https://www.pyinstaller.org/}{pyinstaller}.
+
+This instructions have been tested for UNIX OS. This has not been tested for Windows or WSL. We provide two alternatives to run the project: 
+
+\section{Data retrieval}
+
+We provide a bash script to automatically download the data and add headers to the csv file, as it's useful for our usecase. The bas script is located in \path{./getData.sh} and can be run as: 
+
+\begin{lstlisting}[language=bash]
+./getData.sh
+\end{lstlisting}
+
+The contents of the script are as follows:
+
+\lstinputlisting[]{../../getData.sh}
+
+The getData script will download the dataset requiered, add the headers and do a split if the dataset is not yet in the dataset.
+
+\section{Binary execution instructions}
+
+The binary files are located in \path{./dist/*} folders. Two scripts can be run with the following commands and will scan the \path{data/} folder for files with extensions \path{.train} and \path{.test} respectively and run the train and test executables in \path{./dist/train/train} and \path{./dist/test/test} respectively.
+
+\begin{lstlisting}[language=bash]
+./train.sh
+./test.sh
+\end{lstlisting}
+
+The contents of the ./train.sh file are as follows:
+
+\lstinputlisting[]{../../train.sh}
+
+The contents of the ./test.sh file are as follows:
+
+\lstinputlisting[]{../../test.sh}
+
+The scripts will generate log files in the \path{log/} folder and the models and rules in the \path{models/} folder.
+
+\section{Python environment}
+
+If not running in linux, follow this steps to run the project:
+
+\begin{itemize}
+    \item from the PW1 folder
+    \item create conda/virtualenv and activate
+    \begin{lstlisting}[language=bash]
+# anaconda
+conda create --name sel3.9 python=3.9
+conda activate sel3.9
+pip install -r requirements.txt
+
+# virtualenv
+python3 -m venv venv/
+source venv/bin/activate
+pip install -r requirements.txt
+    \end{lstlisting}
+    \item download data from:
+    \begin{enumerate}
+        \item https://archive.ics.uci.edu/ml/machine-learning-databases/hayes-roth/hayes-roth.data
+        \item https://archive.ics.uci.edu/ml/machine-learning-databases/hayes-roth/hayes-roth.test
+        \item https://archive.ics.uci.edu/ml/machine-learning-databases/chess/king-rook-vs-king-pawn/kr-vs-kp.data
+        \item https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data
+    \end{enumerate}
+    \item filter unused column from hayes-roth and rename hayes-roth.data to hayes-roth.train with the following python command:
+    \begin{lstlisting}[language=bash]
+python -c "import pandas as pd; data=pd.read_csv('data/hayes-roth.data'); data=data.drop('name', axis=1); data.to_csv('data/hayes-roth.train', index=False)"
+    \end{lstlisting}
+    then remove the hayes-roth.data file.
+    \item create train and test splits for the data files:
+    \begin{lstlisting}[language=bash]
+python scripts/split_train_test.py -i data/car.data
+python scripts/split_train_test.py -i data/kr-vs-kp.data
+    \end{lstlisting}
+\end{itemize}
+
+\section{Python Execution instructions}
+
+To train a model run the following command from PW1:
+
+\begin{lstlisting}[language=bash]
+python src/train.py -i data/car.train -f models/ -l log/car.train.log
+python src/train.py -i data/hayes-roth.train -f models/ -l log/hayes-roth.train.log
+python src/train.py -i data/kr-vs-kp.train -f models/ -l log/kr-vs-kp.train.log
+\end{lstlisting}
+
+And for inference run:
+\begin{lstlisting}[language=bash]
+python src/test.py -i data/car.test -r models/car.rules
+python src/test.py -i data/hayes-roth.test -r models/hayes-roth.rules
+python src/test.py -i data/kr-vs-kp.test -r models/kr-vs-kp.rules
+\end{lstlisting}
+
+\section{Compilation instructions}
+
+To compile the project, a bash script \path{./build.sh} is provided and it is imperative to have pyinstaller in the python environment.
+
+\begin{lstlisting}[language=bash]
+./build.sh
+\end{lstlisting}
+
+\lstinputlisting[]{../../build.sh}
