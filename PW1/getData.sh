@@ -29,6 +29,6 @@ for fullfile in data/*; do
     filename="${filename%.*}"
 
     if [ "$extension" = "data" ]; then
-        python scripts/split_train_test.py -i $fullfile
+        ./dist/split_train_test/split_train_test -i $fullfile
     fi
 done
