@@ -9,3 +9,10 @@ mv dist/ ../dist/
 mv build/ ../build/
 mv *.spec ../
 cd -
+
+cd scripts/
+pyinstaller --hidden-import cmath split_train_test.py
+mv dist/* ../dist/
+mv build/* ../build/
+mv *.spec ../
+cd -
