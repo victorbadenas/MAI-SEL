@@ -9,20 +9,112 @@ The PRISM\cite{cendrowska1987prism} algorithm is a rule inducing procedure which
     \item Floating point values (it can handle integer values or quantized numerical attributes)
 \end{enumerate}
 
-\section{Pseudo Code}
+\section{Algorithm}
+\label{section:algorithm}
+
+The PRISM algorithm consists on the following:
 
 \begin{algorithm}[H]
 \SetAlgoLined
     \KwResult{Rules}
-    initialization\;
-    \While{While condition}{
-        instructions\;
-        \eIf{condition}{
-            instructions1\;
-            instructions2\;
-        }{
-            instructions3\;
+    $Rules \leftarrow \emptyset$\;
+    \ForEach{class $C_x$}{
+        $I \leftarrow data$\;
+        \While{$\exists i_j \in I, class(i_j) = C_x $}{
+            $rule_{new} \leftarrow empty\ rule$\;
+            $E \leftarrow I$\; 
+            \While{$acc(rule) != 1.0\ and\ cov(rule) > 1\ and\ rule\ has\ unused\ attributes$}{
+                $rules_{all\ candidates} \leftarrow \emptyset$\;
+                \ForEach{unused attribute}{
+                    \ForEach{value of the unused attribute}{
+                        $rule_{candidate} \leftarrow empty\ rule$\;
+                        $rule_{candidate}[attribute] \leftarrow value$\;
+                        evaluate $rule_{candidate}$ in $E$\;
+                        $rules_{all\ candidates} \leftarrow \{rules_{all\ candidates}, rule_{candidate}\}$\;
+                    }
+                }
+                $rule_{best\ candidate} \leftarrow max(rules_{all\ candidates})$\;
+                extend $rule_{new}$ with $rule_{best\ candidate}$\;
+                $E \leftarrow \{i_0, i_1, ..., i_N\}, i_n \in rule_{new}$\;
+                evaluate $rule_{candidate}$ in $E$
+            }
+            $Rules \leftarrow \{Rules, rule_{new}\}$\;
+            $I \leftarrow \{i_0, i_1, ..., i_N\}, i_n \notin rule_{new}$\;
         }
-}
+    }
 \caption{PRISM}
+\label{prism-algorithm}
 \end{algorithm}
+
+Where for each class, the data is initialized to the whole dataset and the rules are progressively built selecting the best rule in terms of accuracy in each iteration of the while loop. Once a rule has been found in the while loop, the rules are updated to contain the best rule for the instances $I$ and $I$ is updated to remove the instances of the dataset that are covered by the rule found. This is done until there are no classes left.\;
+
+To select the best rule, a new empty rule is initialized as well as $E$ initialized with all the remaining instances of the original data left in $I$. The process starts by searching exhaustively for all the unused attributes in the rule and selecting the one that has the best accuracy. In case of a tie, the rule with the best coverage is selected. 
+
+After the best rule with the best $(attribute, value)$ pair has been selected, the rule is extended by assigning that value to the attribute of the rule. Then the $E$ examples are updated to contain only the ones covered by the rule and then the rule is evaluated in $E$ to be able to evaluate the exit condition. The loop will continue while the coverage of the rule is more than one item, if the rule has a 100\% accuracy or if the rule is complete, meaning that all the attributes in the dataset have already been used and it can't be extended.\;
+
+\section{Python implementation}
+
+The algorithm was implemented using \emph{Python3.9} and the packages \emph{pandas} and \emph{numpy} for loading and formatting the dataset before processing.\;
+
+The Algorithm was implemented in 3 python objects:
+\begin{enumerate}
+    \item Dataset: Python class responsible for loading and formatting the dataset. Parent class from the PandasDataset object that will be used to load a csv using \emph{pandas}. The class contains methods to control the existance of the dataset and methods and properties to access different properties of the dataset:
+        \begin{enumerate}
+            \item \emph{\_\_str\_\_}: string representation of the dataset, useful for debugging
+            \item \emph{\_\_getitem\_\_}: python's method for accessing as if it were an array, In this case it's used to access the dataframe.
+            \item \emph{ columns}: gets the dataset attributes' names, if the csv has none, numerical indexes will be used.
+            \item \emph{input\_data}: extracts the data from all columns but the target variable
+            \item \emph{target\_data}: extracts the target variable
+            \item \emph{name}: returns the basename of the dataset file
+            \item \emph{load\_dataset}: read csv and return dataframe
+        \end{enumerate}
+    \item Rule: Python class containing the attributes and methods needed by the rules in prism:
+        \begin{enumerate}
+            \item \emph{class attributes}: 
+                \begin{enumerate}
+                    \item \emph{stats}: returns the p and t values of the rule
+                    \item \emph{accuracy}: returns the p/t division representing the fraction of correct predictions of the rule in the last \emph{evaluate} call.
+                    \item \emph{coverage}: returns t, the number of items covered by the rule in the last \emph{evaluate} call.
+                    \item \emph{used\_attributes}: keys present in the antecedent. List of the attributes that the rule depends on.
+                    \item \emph{unused\_attributes}: the attributes in the dataset that the rule ignores.
+                    \item \emph{label}: the class that the rule will assign if an instance is covered by the rule
+                \end{enumerate}
+            \item \emph{is\_perfect}: returns true if the rule accuracy is 100\% (1.0) else False.
+            \item \emph{extend}: merges two rules. Given another rule, it sets all values for antecedent attributes not in the current rule to the values of the other rule.
+            \item \emph{evaluate}: infer and check which items are covered by the rule and from this items, which of them have the same output class.
+            \item \emph{apply}: given a list of instances, filter out the instances that are covered by the rule and return it.
+            \item \emph{is\_covered}: public method to test if a single instance is covered by the rule.
+            \item \emph{\_\_str\_\_ \& \_\_repr\_\_}: string representation if the rule.
+            \item \emph{comparator methods}: definition of all the methods in \ref{tab:python operators} that allow rules to be compared against other rules.
+            \item \emph{sort}: sort antecedent by keys. useful for better structured string rule representation.
+        \end{enumerate}
+    \item Prism: Python class responsible for the rule induction algorithm. It implements the following methods:
+        \begin{enumerate}
+            \item \emph{fit}: main method to induce rules.
+            \item \emph{predict}: infer labels from data. Returns array of predictions. If an instance is not covered, return Null for that item.
+            \item \emph{fit\_predict}: perform the two above methods sequentially and return the predicted labels.
+            \item \emph{\_fit}: main loop for the algorithm defined in \ref{section:algorithm}, which loops for each class and builds rules until there are no instances of the class left in the data.
+            \item \emph{\_\_build\_rule}: method for searching for the best rule in that fits the input data as defined in \ref{section:algorithm}.
+            \item \emph{data coversion methods}: multiple methods responsible of extracting the attribute list, target attribute, possible labels and format the input data into a list of dict objects, each one containing the antecedent and the class for each row of the csv dataset.
+            \item \emph{save}: save rules to a txt file and save the properties of the prism rule induction class into a json dictionary.
+            \item \emph{load}: restores the state of the prism object from a json file created with save.
+        \end{enumerate}
+\end{enumerate}
+
+\begin{table}
+\centering
+\begin{tabular}{| c | c |}
+\label{python operators}
+    function & operator \\
+    \hline
+    \hline
+    \_\_le\_\_ & $<=$ \\
+    \_\_ge\_\_ & $>=$ \\
+    \_\_lt\_\_ & $<$ \\
+    \_\_gt\_\_ & $>$ \\
+    \_\_eq\_\_ & $==$ \\
+    \_\_ne\_\_ & $!=$ \\
+    \hline
+\end{tabular}
+\caption{\label{tab:python operators}Python operators and functions}
+\end{table}
