@@ -1,10 +1,12 @@
 In this chapter we will discuss the execution instructions of the code. The project was developed in \href{https://docs.python.org/3/whatsnew/3.9.html}{Python3.9} however, it's compatible with python3.6-3.9. The requirements can be found in the \path{./requirements.txt}. The code has been compiled to be able to run it as an executable without installing the dependancies with \href{https://www.pyinstaller.org/}{pyinstaller}.
 
-This instructions have been tested for UNIX OS. This has not been tested for Windows or WSL. We provide two alternatives to run the project: 
+This instructions have been tested for UNIX OS. This has not been tested for Windows or WSL. If it is required to be installed in a Windows based machine without WSL or any other linux VM, refer to section \ref{section:python environment}.
+
+We provide two alternatives to run the project: 
 
 \section{Data retrieval}
 
-We provide a bash script to automatically download the data and add headers to the csv file, as it's useful for our usecase. The bas script is located in \path{./getData.sh} and can be run as: 
+If in UNIX, we provide a bash script to automatically download the data and add headers to the csv file, as it's useful for our usecase. The bas script is located in \path{./getData.sh} and can be run as: 
 
 \begin{lstlisting}[language=bash]
 ./getData.sh
@@ -36,6 +38,7 @@ The contents of the ./test.sh file are as follows:
 The scripts will generate log files in the \path{log/} folder and the models and rules in the \path{models/} folder.
 
 \section{Python environment}
+\label{section:python environment}
 
 If not running in linux, follow this steps to run the project:
 
@@ -55,16 +58,23 @@ pip install -r requirements.txt
     \end{lstlisting}
     \item download data from:
     \begin{enumerate}
-        \item https://archive.ics.uci.edu/ml/machine-learning-databases/hayes-roth/hayes-roth.data
-        \item https://archive.ics.uci.edu/ml/machine-learning-databases/hayes-roth/hayes-roth.test
-        \item https://archive.ics.uci.edu/ml/machine-learning-databases/chess/king-rook-vs-king-pawn/kr-vs-kp.data
-        \item https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data
+        \item \url{https://archive.ics.uci.edu/ml/machine-learning-databases/hayes-roth/hayes-roth.data}
+        \item \url{https://archive.ics.uci.edu/ml/machine-learning-databases/hayes-roth/hayes-roth.test}
+        \item \url{https://archive.ics.uci.edu/ml/machine-learning-databases/chess/king-rook-vs-king-pawn/kr-vs-kp.data}
+        \item \url{https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data}
     \end{enumerate}
     \item filter unused column from hayes-roth and rename hayes-roth.data to hayes-roth.train with the following python command:
     \begin{lstlisting}[language=bash]
 python -c "import pandas as pd; data=pd.read_csv('data/hayes-roth.data'); data=data.drop('name', axis=1); data.to_csv('data/hayes-roth.train', index=False)"
     \end{lstlisting}
     then remove the hayes-roth.data file.
+    \item add the headers for each dataset:
+    \begin{enumerate}
+        \item hayes-roth.train: hobby,age,educational level,marital status,class
+        \item hayes-roth.test: hobby,age,educational level,marital status,class
+        \item kr-vs-kp.data: bkblk,bknwy,bkon8,bkona,bkspr,bkxbq,bkxcr,bkxwp,blxwp,bxqsq,cntxt\\,dsopp,dwipd,hdchk,katri,mulch,qxmsq,r2ar8,reskd,reskr,rimmx,rkxwp,rxmsq,simpl,skach,\\skewr,skrxp,spcop,stlmt,thrsk,wkcti,wkna8,wknck,wkovl,wkpos,wtoeg,class
+        \item car.data: buying,maint,doors,persons,lug\_boot,safety,class
+    \end{enumerate}
     \item create train and test splits for the data files:
     \begin{lstlisting}[language=bash]
 python scripts/split_train_test.py -i data/car.data
