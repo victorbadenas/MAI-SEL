@@ -82,6 +82,24 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
+                "age": "1",
+                "educational_level": "3",
+                "marital_status": "1"
+            },
+            "class_": "1",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
                 "age": "3",
                 "educational_level": "3",
                 "marital_status": "1"
@@ -120,24 +138,6 @@
             "antecedent": {
                 "age": "3",
                 "educational_level": "1",
-                "marital_status": "1"
-            },
-            "class_": "1",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "hobby",
-                "age",
-                "educational_level",
-                "marital_status"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "age": "1",
-                "educational_level": "3",
                 "marital_status": "1"
             },
             "class_": "1",
@@ -398,26 +398,8 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "age": "3",
-                "educational_level": "3",
-                "marital_status": "2"
-            },
-            "class_": "2",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "hobby",
-                "age",
-                "educational_level",
-                "marital_status"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "age": "3",
                 "educational_level": "2",
-                "marital_status": "3"
+                "marital_status": "2"
             },
             "class_": "2",
             "p": 1,
@@ -453,7 +435,7 @@
             "antecedent": {
                 "age": "3",
                 "educational_level": "2",
-                "marital_status": "2"
+                "marital_status": "3"
             },
             "class_": "2",
             "p": 1,
@@ -470,6 +452,24 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "age": "2",
+                "educational_level": "3",
+                "marital_status": "2"
+            },
+            "class_": "2",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "hobby",
+                "age",
+                "educational_level",
+                "marital_status"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "age": "3",
                 "educational_level": "3",
                 "marital_status": "2"
             },

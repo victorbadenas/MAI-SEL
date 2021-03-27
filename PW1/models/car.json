@@ -357,27 +357,6 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "high",
-                "maint": "med",
-                "persons": "4",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 9,
-            "t": 9
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
                 "maint": "high",
                 "persons": "4",
                 "safety": "high"
@@ -385,200 +364,6 @@
             "class_": "acc",
             "p": 9,
             "t": 9
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "maint": "vhigh",
-                "persons": "4",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 11,
-            "t": 11
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
-                "maint": "med",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 6,
-            "t": 6
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "lug_boot": "big",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 4,
-            "t": 4
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "lug_boot": "big",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 4,
-            "t": 4
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "maint": "med",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 9,
-            "t": 9
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "maint": "vhigh",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 9,
-            "t": 9
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "lug_boot": "med",
-                "maint": "high",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 4,
-            "t": 4
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "4",
-                "lug_boot": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 3,
-            "t": 3
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
-                "lug_boot": "big",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 4,
-            "t": 4
         },
         {
             "_available_attibutes": [
@@ -614,6 +399,221 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "high",
+                "maint": "med",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 9,
+            "t": 9
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "maint": "med",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 6,
+            "t": 6
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "lug_boot": "big",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 4,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "lug_boot": "big",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 4,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "maint": "med",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 9,
+            "t": 9
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "maint": "vhigh",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 9,
+            "t": 9
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "lug_boot": "med",
+                "maint": "high",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 4,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "4",
+                "lug_boot": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 3,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "maint": "vhigh",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 11,
+            "t": 11
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "lug_boot": "big",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 4,
+            "t": 4
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
                 "doors": "5more",
                 "lug_boot": "big",
                 "persons": "4",
@@ -657,7 +657,7 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "high",
-                "lug_boot": "med",
+                "lug_boot": "big",
                 "maint": "high",
                 "persons": "more",
                 "safety": "high"
@@ -810,7 +810,7 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "med",
-                "doors": "5more",
+                "doors": "4",
                 "lug_boot": "med",
                 "persons": "4",
                 "safety": "med"
@@ -831,7 +831,7 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "high",
+                "buying": "low",
                 "doors": "3",
                 "lug_boot": "small",
                 "persons": "more",
@@ -897,15 +897,15 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "doors": "4",
-                "lug_boot": "small",
+                "buying": "high",
+                "lug_boot": "med",
                 "maint": "high",
                 "persons": "more",
                 "safety": "high"
             },
             "class_": "acc",
-            "p": 3,
-            "t": 3
+            "p": 4,
+            "t": 4
         },
         {
             "_available_attibutes": [
@@ -985,29 +985,7 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "vhigh",
-                "doors": "5more",
-                "maint": "low",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 2,
-            "t": 2
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
+                "buying": "high",
                 "lug_boot": "big",
                 "maint": "high",
                 "persons": "more",
@@ -1029,15 +1007,15 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "high",
-                "lug_boot": "big",
+                "doors": "4",
+                "lug_boot": "small",
                 "maint": "high",
                 "persons": "more",
                 "safety": "high"
             },
             "class_": "acc",
-            "p": 4,
-            "t": 4
+            "p": 3,
+            "t": 3
         },
         {
             "_available_attibutes": [
@@ -1051,38 +1029,15 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "high",
-                "lug_boot": "big",
-                "maint": "low",
+                "buying": "vhigh",
+                "doors": "5more",
+                "lug_boot": "med",
                 "persons": "4",
                 "safety": "med"
             },
             "class_": "acc",
             "p": 2,
             "t": 2
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "doors": "3",
-                "lug_boot": "small",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
         },
         {
             "_available_attibutes": [
@@ -1117,9 +1072,121 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
+                "buying": "low",
+                "doors": "3",
+                "lug_boot": "small",
+                "maint": "low",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
                 "buying": "med",
-                "doors": "4",
+                "doors": "5more",
                 "lug_boot": "med",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "5more",
+                "maint": "low",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "3",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "doors": "3",
+                "lug_boot": "med",
+                "maint": "low",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "lug_boot": "big",
+                "maint": "low",
                 "persons": "4",
                 "safety": "med"
             },
@@ -1141,14 +1208,13 @@
             "antecedent": {
                 "buying": "high",
                 "doors": "3",
-                "lug_boot": "med",
-                "maint": "med",
+                "lug_boot": "small",
                 "persons": "more",
-                "safety": "med"
+                "safety": "high"
             },
             "class_": "acc",
-            "p": 1,
-            "t": 1
+            "p": 2,
+            "t": 2
         },
         {
             "_available_attibutes": [
@@ -1206,15 +1272,37 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "low",
-                "doors": "3",
-                "lug_boot": "small",
+                "buying": "vhigh",
+                "lug_boot": "big",
+                "maint": "med",
                 "persons": "more",
                 "safety": "high"
             },
             "class_": "acc",
-            "p": 2,
-            "t": 2
+            "p": 3,
+            "t": 3
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "lug_boot": "med",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
         },
         {
             "_available_attibutes": [
@@ -1250,28 +1338,6 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "vhigh",
-                "lug_boot": "big",
-                "maint": "med",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 3,
-            "t": 3
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
                 "buying": "high",
                 "doors": "3",
                 "lug_boot": "med",
@@ -1282,50 +1348,6 @@
             "class_": "acc",
             "p": 1,
             "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "lug_boot": "med",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "doors": "5more",
-                "lug_boot": "med",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 2,
-            "t": 2
         },
         {
             "_available_attibutes": [
@@ -1383,28 +1405,6 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "high",
-                "doors": "5more",
-                "maint": "med",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
                 "buying": "med",
                 "doors": "5more",
                 "maint": "high",
@@ -1429,13 +1429,35 @@
             "antecedent": {
                 "buying": "high",
                 "doors": "5more",
-                "lug_boot": "med",
-                "persons": "more",
+                "maint": "low",
+                "persons": "4",
                 "safety": "med"
             },
             "class_": "acc",
-            "p": 2,
-            "t": 2
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "lug_boot": "big",
+                "maint": "high",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 3,
+            "t": 3
         },
         {
             "_available_attibutes": [
@@ -1471,28 +1493,6 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "med",
-                "lug_boot": "big",
-                "maint": "high",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 3,
-            "t": 3
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
                 "lug_boot": "small",
                 "maint": "med",
                 "persons": "more",
@@ -1514,8 +1514,30 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "low",
-                "doors": "2",
+                "buying": "med",
+                "doors": "4",
+                "lug_boot": "big",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "5more",
                 "lug_boot": "med",
                 "maint": "med",
                 "persons": "more",
@@ -1537,9 +1559,9 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "high",
+                "buying": "med",
                 "lug_boot": "big",
-                "maint": "low",
+                "maint": "high",
                 "persons": "more",
                 "safety": "med"
             },
@@ -1559,10 +1581,10 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "high",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "low",
+                "buying": "vhigh",
+                "doors": "4",
+                "lug_boot": "big",
+                "maint": "med",
                 "persons": "4",
                 "safety": "med"
             },
@@ -1584,7 +1606,7 @@
             "antecedent": {
                 "buying": "low",
                 "lug_boot": "small",
-                "maint": "med",
+                "maint": "low",
                 "persons": "4",
                 "safety": "med"
             },
@@ -1626,144 +1648,54 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "low",
-                "doors": "5more",
-                "lug_boot": "small",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "3",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "doors": "4",
-                "lug_boot": "med",
-                "maint": "low",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "3",
-                "lug_boot": "med",
-                "maint": "high",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "doors": "5more",
-                "lug_boot": "big",
-                "maint": "low",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "lug_boot": "big",
-                "maint": "high",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
                 "doors": "2",
-                "lug_boot": "small",
+                "lug_boot": "med",
+                "maint": "low",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "3",
+                "lug_boot": "med",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "doors": "5more",
+                "maint": "med",
                 "persons": "4",
                 "safety": "med"
             },
@@ -1793,6 +1725,51 @@
             "class_": "acc",
             "p": 1,
             "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "5more",
+                "lug_boot": "big",
+                "maint": "low",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "doors": "5more",
+                "lug_boot": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
         },
         {
             "_available_attibutes": [
@@ -1827,144 +1804,8 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "med",
-                "lug_boot": "big",
-                "maint": "vhigh",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 2,
-            "t": 2
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
                 "buying": "low",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "vhigh",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "doors": "3",
-                "lug_boot": "med",
-                "maint": "med",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "doors": "2",
-                "lug_boot": "med",
-                "maint": "low",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
-                "lug_boot": "big",
-                "maint": "low",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 2,
-            "t": 2
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "3",
                 "lug_boot": "small",
-                "maint": "low",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "lug_boot": "big",
                 "maint": "med",
                 "persons": "4",
                 "safety": "med"
@@ -1985,128 +1826,374 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "vhigh",
-                "doors": "3",
-                "maint": "low",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "2",
-                "lug_boot": "med",
-                "maint": "low",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
                 "buying": "low",
-                "doors": "3",
-                "lug_boot": "med",
-                "maint": "vhigh",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "doors": "4",
-                "lug_boot": "small",
-                "maint": "low",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "doors": "5more",
-                "maint": "med",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 2,
-            "t": 2
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
                 "lug_boot": "big",
                 "maint": "high",
                 "persons": "more",
                 "safety": "med"
             },
             "class_": "acc",
-            "p": 3,
-            "t": 3
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "lug_boot": "big",
+                "maint": "vhigh",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "lug_boot": "big",
+                "maint": "low",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "4",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "doors": "5more",
+                "lug_boot": "med",
+                "maint": "vhigh",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "4",
+                "lug_boot": "med",
+                "maint": "low",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "5more",
+                "lug_boot": "med",
+                "maint": "vhigh",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "doors": "4",
+                "lug_boot": "med",
+                "maint": "low",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "3",
+                "maint": "low",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "doors": "3",
+                "lug_boot": "med",
+                "maint": "vhigh",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "lug_boot": "big",
+                "maint": "vhigh",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "4",
+                "maint": "low",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "doors": "5more",
+                "lug_boot": "small",
+                "maint": "high",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "4",
+                "lug_boot": "big",
+                "maint": "low",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "doors": "3",
+                "lug_boot": "small",
+                "maint": "med",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "5more",
+                "maint": "med",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "lug_boot": "big",
+                "maint": "low",
+                "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 2,
+            "t": 2
         },
         {
             "_available_attibutes": [
@@ -2142,6 +2229,29 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
+                "buying": "high",
+                "doors": "4",
+                "lug_boot": "med",
+                "maint": "med",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
                 "buying": "med",
                 "doors": "5more",
                 "lug_boot": "small",
@@ -2165,11 +2275,11 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "high",
-                "doors": "4",
+                "buying": "med",
+                "doors": "3",
                 "lug_boot": "med",
-                "maint": "med",
-                "persons": "4",
+                "maint": "high",
+                "persons": "more",
                 "safety": "med"
             },
             "class_": "acc",
@@ -2211,210 +2321,32 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "low",
-                "lug_boot": "big",
-                "maint": "vhigh",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 2,
-            "t": 2
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
                 "doors": "5more",
-                "maint": "low",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "doors": "3",
                 "lug_boot": "small",
-                "maint": "low",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "vhigh",
-                "persons": "more",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
-                "doors": "3",
-                "lug_boot": "med",
-                "maint": "low",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
-                "doors": "4",
-                "lug_boot": "med",
-                "maint": "high",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "doors": "4",
-                "maint": "low",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "high",
-                "doors": "4",
-                "lug_boot": "med",
-                "maint": "low",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "lug_boot": "big",
-                "maint": "high",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "4",
                 "maint": "med",
                 "persons": "more",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "doors": "5more",
+                "lug_boot": "med",
+                "maint": "high",
+                "persons": "4",
                 "safety": "med"
             },
             "class_": "acc",
@@ -2455,7 +2387,97 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
+                "buying": "high",
+                "doors": "3",
+                "lug_boot": "med",
+                "maint": "med",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "2",
+                "lug_boot": "big",
+                "maint": "high",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "high",
+                "doors": "5more",
+                "maint": "low",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "doors": "2",
+                "lug_boot": "big",
+                "maint": "med",
+                "persons": "4",
+                "safety": "med"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
                 "buying": "vhigh",
+                "doors": "3",
                 "lug_boot": "big",
                 "maint": "low",
                 "persons": "4",
@@ -2477,11 +2499,11 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "vhigh",
+                "buying": "low",
+                "doors": "2",
                 "lug_boot": "med",
-                "maint": "low",
-                "persons": "more",
-                "safety": "high"
+                "maint": "med",
+                "safety": "med"
             },
             "class_": "acc",
             "p": 1,
@@ -2499,11 +2521,12 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
+                "buying": "med",
                 "doors": "3",
-                "lug_boot": "med",
-                "maint": "med",
-                "persons": "4",
-                "safety": "high"
+                "lug_boot": "small",
+                "maint": "low",
+                "persons": "more",
+                "safety": "med"
             },
             "class_": "acc",
             "p": 1,
@@ -2544,9 +2567,9 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
-                "buying": "vhigh",
-                "doors": "4",
-                "lug_boot": "big",
+                "buying": "med",
+                "doors": "2",
+                "lug_boot": "med",
                 "maint": "low",
                 "persons": "more"
             },
@@ -2566,12 +2589,79 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
+                "doors": "3",
+                "lug_boot": "med",
+                "maint": "med",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "vhigh",
+                "doors": "2",
+                "lug_boot": "med",
+                "maint": "low",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "2",
+                "lug_boot": "small",
+                "maint": "med",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "acc",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
                 "buying": "high",
                 "doors": "4",
-                "lug_boot": "small",
-                "maint": "low",
-                "persons": "more",
-                "safety": "high"
+                "maint": "high",
+                "persons": "4",
+                "safety": "med"
             },
             "class_": "acc",
             "p": 1,
@@ -2590,78 +2680,9 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "high",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "high",
-                "persons": "4",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "doors": "5more",
-                "lug_boot": "small",
-                "maint": "high",
+                "doors": "4",
+                "maint": "low",
                 "persons": "more",
-                "safety": "high"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "vhigh",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "med",
-                "safety": "med"
-            },
-            "class_": "acc",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "2",
-                "lug_boot": "small",
-                "maint": "med",
-                "persons": "4",
                 "safety": "high"
             },
             "class_": "acc",
@@ -2684,7 +2705,7 @@
                 "doors": "2",
                 "lug_boot": "med",
                 "maint": "low",
-                "persons": "more",
+                "persons": "4",
                 "safety": "med"
             },
             "class_": "acc",
@@ -2860,7 +2881,7 @@
                 "buying": "low",
                 "doors": "4",
                 "lug_boot": "med",
-                "persons": "4",
+                "persons": "more",
                 "safety": "high"
             },
             "class_": "vgood",
@@ -2880,14 +2901,14 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "low",
-                "doors": "5more",
-                "lug_boot": "med",
+                "lug_boot": "big",
                 "maint": "high",
+                "persons": "4",
                 "safety": "high"
             },
             "class_": "vgood",
-            "p": 1,
-            "t": 1
+            "p": 2,
+            "t": 2
         },
         {
             "_available_attibutes": [
@@ -2924,14 +2945,14 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "low",
-                "lug_boot": "big",
+                "doors": "5more",
+                "lug_boot": "med",
                 "maint": "high",
-                "persons": "4",
                 "safety": "high"
             },
             "class_": "vgood",
-            "p": 2,
-            "t": 2
+            "p": 1,
+            "t": 1
         },
         {
             "_available_attibutes": [
@@ -2949,7 +2970,7 @@
                 "doors": "4",
                 "lug_boot": "med",
                 "maint": "med",
-                "persons": "4",
+                "persons": "more",
                 "safety": "high"
             },
             "class_": "vgood",
@@ -2969,14 +2990,36 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "low",
-                "doors": "4",
+                "doors": "5more",
                 "lug_boot": "med",
-                "persons": "more",
+                "persons": "4",
                 "safety": "high"
             },
             "class_": "vgood",
-            "p": 2,
-            "t": 2
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "5more",
+                "maint": "med",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "vgood",
+            "p": 1,
+            "t": 1
         },
         {
             "_available_attibutes": [
@@ -3012,7 +3055,140 @@
             "_target_attribute": "class",
             "_Rule__type": "AND",
             "antecedent": {
+                "buying": "low",
+                "doors": "4",
+                "lug_boot": "med",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "vgood",
+            "p": 2,
+            "t": 2
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "lug_boot": "big",
+                "maint": "low",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "vgood",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
                 "buying": "med",
+                "doors": "5more",
+                "lug_boot": "med",
+                "maint": "low",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "vgood",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "med",
+                "doors": "4",
+                "maint": "med",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "vgood",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "doors": "5more",
+                "lug_boot": "med",
+                "maint": "low",
+                "persons": "more",
+                "safety": "high"
+            },
+            "class_": "vgood",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
+                "buying": "low",
+                "lug_boot": "big",
+                "maint": "med",
+                "persons": "4",
+                "safety": "high"
+            },
+            "class_": "vgood",
+            "p": 1,
+            "t": 1
+        },
+        {
+            "_available_attibutes": [
+                "buying",
+                "maint",
+                "doors",
+                "persons",
+                "lug_boot",
+                "safety"
+            ],
+            "_target_attribute": "class",
+            "_Rule__type": "AND",
+            "antecedent": {
                 "doors": "3",
                 "lug_boot": "med",
                 "maint": "med",
@@ -3038,164 +3214,7 @@
                 "buying": "low",
                 "doors": "5more",
                 "lug_boot": "med",
-                "persons": "4",
-                "safety": "high"
-            },
-            "class_": "vgood",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "lug_boot": "big",
                 "maint": "med",
-                "persons": "4",
-                "safety": "high"
-            },
-            "class_": "vgood",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "low",
-                "persons": "4",
-                "safety": "high"
-            },
-            "class_": "vgood",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "med",
-                "persons": "4",
-                "safety": "high"
-            },
-            "class_": "vgood",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "med",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "vgood",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "low",
-                "lug_boot": "big",
-                "maint": "low",
-                "persons": "4",
-                "safety": "high"
-            },
-            "class_": "vgood",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "buying": "med",
-                "doors": "4",
-                "lug_boot": "med",
-                "maint": "med",
-                "persons": "more",
-                "safety": "high"
-            },
-            "class_": "vgood",
-            "p": 1,
-            "t": 1
-        },
-        {
-            "_available_attibutes": [
-                "buying",
-                "maint",
-                "doors",
-                "persons",
-                "lug_boot",
-                "safety"
-            ],
-            "_target_attribute": "class",
-            "_Rule__type": "AND",
-            "antecedent": {
-                "doors": "5more",
-                "lug_boot": "med",
-                "maint": "low",
                 "persons": "more",
                 "safety": "high"
             },
@@ -3307,7 +3326,7 @@
                 "buying": "low",
                 "lug_boot": "big",
                 "maint": "low",
-                "persons": "4",
+                "persons": "more",
                 "safety": "med"
             },
             "class_": "good",
@@ -3373,7 +3392,7 @@
                 "buying": "low",
                 "lug_boot": "big",
                 "maint": "low",
-                "persons": "more",
+                "persons": "4",
                 "safety": "med"
             },
             "class_": "good",
@@ -3484,7 +3503,7 @@
                 "doors": "5more",
                 "lug_boot": "med",
                 "maint": "med",
-                "persons": "4",
+                "persons": "more",
                 "safety": "med"
             },
             "class_": "good",
@@ -3530,7 +3549,7 @@
                 "doors": "5more",
                 "lug_boot": "med",
                 "maint": "med",
-                "persons": "more",
+                "persons": "4",
                 "safety": "med"
             },
             "class_": "good",
@@ -3845,11 +3864,11 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "low",
-                "doors": "2",
+                "doors": "5more",
                 "lug_boot": "med",
-                "maint": "med",
+                "maint": "low",
                 "persons": "more",
-                "safety": "high"
+                "safety": "med"
             },
             "class_": "good",
             "p": 1,
@@ -3868,11 +3887,11 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "buying": "low",
-                "doors": "5more",
+                "doors": "2",
                 "lug_boot": "med",
-                "maint": "low",
+                "maint": "med",
                 "persons": "more",
-                "safety": "med"
+                "safety": "high"
             },
             "class_": "good",
             "p": 1,
