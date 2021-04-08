@@ -101,7 +101,7 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "age": "3",
-                "educational_level": "3",
+                "educational_level": "1",
                 "marital_status": "1"
             },
             "class_": "1",
@@ -137,7 +137,7 @@
             "_Rule__type": "AND",
             "antecedent": {
                 "age": "3",
-                "educational_level": "1",
+                "educational_level": "3",
                 "marital_status": "1"
             },
             "class_": "1",
