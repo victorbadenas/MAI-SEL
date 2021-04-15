@@ -7,7 +7,8 @@ from pathlib import Path
 sys.path.append(os.path.dirname(__file__))
 
 from dataset import PandasDataset
-from prism import Prism
+from decision_forest import DecisionForestClassifier
+from cart import CART
 
 
 def set_logger(log_file_path, debug=False):
@@ -50,11 +51,11 @@ class Trainer:
         X = self.dataset.input_data
         Y = self.dataset.target_data
 
-        prism = Prism()
+        cart = CART()
 
-        y = prism.fit_predict(X, Y)
+        y = cart.fit_predict(X, Y)
 
-        logging.debug('\n'.join(map(str, prism.rules)))
+        logging.debug(f'')
 
         accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
         coverage = sum(1 for item in y if y is not None)/len(y)

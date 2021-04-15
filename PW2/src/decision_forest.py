@@ -1,4 +1,4 @@
-from .base_classifier import BaseClassifier
+from base_classifier import BaseClassifier
 
 class DecisionForestClassifier(BaseClassifier):
     def __init__(self, headers=None):

@@ -7,14 +7,14 @@ class BaseClassifier:
     """Abstract base classifier
     """
     def __init__(self, headers=None):
-        self.reset()
+        self._reset()
         self._target_attribute = 'target'
         self._labels = headers
         self._attributes = None
 
-    '''
+    """
     public methods
-    '''
+    """
     def fit(self, X, Y):
         data = self._validate_train_data(X, Y)
         return self._fit(data)
@@ -33,18 +33,18 @@ class BaseClassifier:
         if path_to_file.suffix == '.json':
             self._save_to_json(path_to_file, data)
         else:
-            self._save_rules_to_txt(path_to_file)
+            self._save_to_txt(path_to_file)
 
     def load(self, path_to_file):
         raise NotImplementedError
 
-    '''
+    """
     abstract methods
-    '''
+    """
     def _save_to_json(self, path_to_file, data):
         raise NotImplementedError
 
-    def _save_rules_to_txt(self, path_to_file):
+    def _save_to_txt(self, path_to_file):
         raise NotImplementedError
 
     def _reset(self):
@@ -59,9 +59,9 @@ class BaseClassifier:
     def _validate_train_data(self, X, Y):
         raise NotImplementedError
 
-    '''
+    """
     properties
-    '''
+    """
     @property
     def attributes(self):
         return self._attributes
