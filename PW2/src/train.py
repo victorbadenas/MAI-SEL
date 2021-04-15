@@ -55,22 +55,22 @@ class Trainer:
 
         y = cart.fit_predict(X, Y)
 
-        logging.debug(f'')
+        logging.debug(f'\n{cart}')
 
-        accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
-        coverage = sum(1 for item in y if y is not None)/len(y)
+        # accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
+        # coverage = sum(1 for item in y if y is not None)/len(y)
 
-        logging.info(f'Inference results on training data for {self.dataset.dataset_path}')
-        logging.info(f'accuracy: {accuracy*100:.2f}%')
-        logging.info(f'coverage: {coverage*100:.2f}%')
+        # logging.info(f'Inference results on training data for {self.dataset.dataset_path}')
+        # logging.info(f'accuracy: {accuracy*100:.2f}%')
+        # logging.info(f'coverage: {coverage*100:.2f}%')
 
         if self.output_dir is not None:
             json_model_path = self.output_dir / (self.dataset.name + '.json')
-            txt_model_path = self.output_dir / (self.dataset.name + '.rules')
+            tree_model_path = self.output_dir / (self.dataset.name + '.tree')
             logging.info(f"Saving json model to {json_model_path}")
-            prism.save(json_model_path)
-            logging.info(f"Saving json model to {txt_model_path}")
-            prism.save(txt_model_path)
+            cart.save(json_model_path)
+            logging.info(f"Saving tree to {tree_model_path}")
+            cart.save(tree_model_path)
 
 if __name__ == "__main__":
     args = parseArgumentsFromCommandLine()

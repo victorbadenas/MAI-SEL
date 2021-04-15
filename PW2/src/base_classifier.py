@@ -29,9 +29,8 @@ class BaseClassifier:
     def save(self, path_to_file):
         path_to_file = Path(path_to_file)
         path_to_file.parent.mkdir(parents=True, exist_ok=True)
-        data = self.__dict__.copy()
         if path_to_file.suffix == '.json':
-            self._save_to_json(path_to_file, data)
+            self._save_to_json(path_to_file)
         else:
             self._save_to_txt(path_to_file)
 
