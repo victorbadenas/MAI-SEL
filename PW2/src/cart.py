@@ -15,6 +15,7 @@ class Leaf:
 
     def fit(self, data):
         self.fit_attribute(data)
+        self.fit_value(data)
         self.create_leaves(data)
 
     def fit_attribute(self, data):
@@ -22,11 +23,20 @@ class Leaf:
         min_idx = np.argmin(gini_values)
         self._attribute = self.attributes[min_idx]
 
+    def fit_value(self, data):
+        filtered_df = data[[self._attribute, 'class']]
+        counts = filtered_df.pivot_table(index=self._attribute, columns='class', aggfunc='size', fill_value=0.0)
+        sum_ = np.sum(counts.to_numpy(), axis=1, keepdims=True)
+        gini = 1 - ((counts / sum_)**2).sum(axis=1)
+        idx = np.argmin(gini)
+        self._value = counts.index[idx]
+
     def create_leaves(self, data):
-        possible_values = data[self._attribute].unique()
-        self.branches = dict(zip(possible_values, [None]*len(possible_values)))
-        for branch in self.branches:
-            branchdata = data[data[self._attribute] == branch]
+        pos = data[data[self._attribute] == self._value]
+        neg = data[data[self._attribute] != self._value]
+        possible_values = [self._value, 'other']
+        self.branches = dict(zip(possible_values, [None]*2))
+        for branch, branchdata in zip(possible_values, [pos, neg]):
             classes = branchdata[self._classKey]
             if (classes == classes.iloc[0]).all():
                 # assign class string label as end of the branch.
@@ -68,15 +78,6 @@ class Leaf:
         return data
 
     def __str__(self, level=0, clearlvls=None):
-        """
-        (attr01)
-        ├── (attr11)
-        │   ├── (attr111)
-        │   └── (attr112)
-        └── (attr12)
-            ├── (attr121)
-            └── (attr122)
-        """
         clearlvls = [] if clearlvls is None else clearlvls
 
         padding = ''.join(['│   ']*(level))
@@ -88,14 +89,14 @@ class Leaf:
                 padding = padding[:i*4] + '    ' + padding[(i+1)*4:]
 
         if level == 0:
-            msg = f'({self._attribute})\n'
+            msg = f'({self._attribute}, branches: {list(self.branches)})\n'
         else:
             if len(clearlvls) > 0:
                 lvl_char = '└' if clearlvls[-1] == (level-1) else '├'
             else:
                 lvl_char = '├'
 
-            msg = padding[:-4] + lvl_char + '── ' + f'({self._attribute})\n'
+            msg = padding[:-4] + lvl_char + '── ' + f'({self._attribute}, branches: {list(self.branches)})\n'
 
         for idx, branch in enumerate(self.branches.values()):
             if idx == len(self.branches)-1:
