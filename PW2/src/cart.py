@@ -4,7 +4,7 @@ import numpy as np
 import json
 import copy
 from pprint import pformat, pprint
-from utils.math import gini_index
+from utils.math import gini_index, class_count_gini
 from base_classifier import BaseClassifier
 
 class Leaf:
@@ -25,11 +25,8 @@ class Leaf:
 
     def fit_value(self, data):
         filtered_df = data[[self._attribute, 'class']]
-        counts = filtered_df.pivot_table(index=self._attribute, columns='class', aggfunc='size', fill_value=0.0)
-        sum_ = np.sum(counts.to_numpy(), axis=1, keepdims=True)
-        gini = 1 - ((counts / sum_)**2).sum(axis=1)
-        idx = np.argmin(gini)
-        self._value = counts.index[idx]
+        gini_table, _ = class_count_gini(filtered_df, self._classKey)
+        self._value = gini_table.index[np.argmin(gini_table)]
 
     def create_leaves(self, data):
         pos = data[data[self._attribute] == self._value]
