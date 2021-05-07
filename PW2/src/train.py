@@ -56,18 +56,16 @@ class Trainer:
         X = self.dataset.input_data
         Y = self.dataset.target_data
 
-        rfc = RandomForestClassifier(F=2, num_trees=3, n_jobs=20)
+        rfc = RandomForestClassifier(F=2, num_trees=2, n_jobs=2)
 
-        rfc.fit(X, Y)
+        y = rfc.fit_predict(X, Y)
 
         logging.debug(f'\n{rfc}')
 
-        # accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
-        # coverage = sum(1 for item in y if y is not None)/len(y)
+        accuracy = (Y == y).mean()
 
-        # logging.info(f'Inference results on training data for {self.dataset.dataset_path}')
-        # logging.info(f'accuracy: {accuracy*100:.2f}%')
-        # logging.info(f'coverage: {coverage*100:.2f}%')
+        logging.info(f'Inference results on training data for {self.dataset.dataset_path}')
+        logging.info(f'accuracy: {accuracy*100:.2f}%')
 
         if self.output_dir is not None:
             # json_model_path = self.output_dir / (self.dataset.name + '.json')
@@ -78,7 +76,7 @@ class Trainer:
             rfc.save(tree_model_path)
 
 if __name__ == "__main__":
-    # set_seeds(42)
+    set_seeds(42)
     args = parseArgumentsFromCommandLine()
     set_logger(args.logger, debug=args.debug)
     Trainer(args)()

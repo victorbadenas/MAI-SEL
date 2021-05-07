@@ -39,7 +39,7 @@ class RandomForestClassifier(BaseClassifier):
 
         if self.n_jobs == 1:
             for t in self.trees:
-                t.fit(X)
+                t = self._fit_tree(t, X)
         else:
             from functools import partial
             with mp.Pool(self.n_jobs) as p:
@@ -51,7 +51,30 @@ class RandomForestClassifier(BaseClassifier):
     def _predict(self, X):
         if self.trees is None:
             raise ValueError('fit has not been called')
-        pass
+        if self.n_jobs == 1:
+            predictions = [None]*self.num_trees
+            for i, t in enumerate(self.trees):
+                predictions[i] = self._predict_tree(t, X)
+        else:
+            from functools import partial
+            with mp.Pool(self.n_jobs) as p:
+                predictions = list(p.map(partial(self._predict_tree, X=X), self.trees))
+        predictions = self._aggregate_predictions(predictions)
+        return np.array(predictions)
+
+    def _aggregate_predictions(self, predictions):
+        agg_predictions = [dict(zip(self._labels, [0]*len(self._labels))) for _ in range(len(predictions[0]))]
+        for final_prediction_idx in range(len(predictions[0])):
+            tree_preds = [predictions[n_tree][final_prediction_idx] for n_tree in range(self.num_trees)]
+            for pred in tree_preds:
+                for label in self._labels:
+                    agg_predictions[final_prediction_idx][label] += pred.get(label, 0)
+            agg_predictions[final_prediction_idx] = {k: v/len(predictions) for k, v in agg_predictions[final_prediction_idx].items()}
+        final_predictions = [max(pred, key=pred.get) for pred in agg_predictions]
+        return final_predictions
+
+    def _predict_tree(self, tree, X):
+        return [tree.predict(x) for x in X.to_dict('records')]  # convert to list(dict()) for speeding up iterations
 
     def _validate_train_data(self, X, Y=None):
         if isinstance(X, pd.DataFrame):
@@ -174,7 +197,17 @@ class Node(BaseClassifier):
     def predict(self, X):
         if not self.trained:
             raise ValueError('fit the node first by calling node.fit(X)')
-        raise NotImplementedError
+        if self.type == 'numerical':
+            branch = self.__compare_numerical(X)
+        else:
+            branch = self.__compare_categorical(X)
+        return self.branches[branch].predict(X)
+
+    def __compare_categorical(self, x):
+        return x[self.feature] == self.value
+
+    def __compare_numerical(self, x):
+        return x[self.feature] >= self.value
 
     def __str__(self, level=0, clearlvls=None, key=None):
         if not self.trained:
