@@ -1,6 +1,7 @@
 import copy
 import json
 import logging
+import multiprocessing as mp
 import random
 from pprint import pformat, pprint
 
@@ -8,31 +9,48 @@ import numpy as np
 import pandas as pd
 
 from base_classifier import BaseClassifier
-from utils.math import gini_index, delta_gini
 from utils.data import is_numeric
+from utils.math import delta_gini, gini_index
 
 
 class RandomForestClassifier(BaseClassifier):
-    def __init__(self, headers=None, F=-1, classKey=None):
+    def __init__(self, headers=None, F=-1, num_trees=10, classKey=None, n_jobs=1):
         super(RandomForestClassifier, self).__init__(headers)
         self.classKey = classKey
-        self.mainNode = None
         self.F = F
+        self.num_trees = num_trees
+        self.n_jobs = None if n_jobs < 1 else n_jobs
 
     def _reset(self):
-        pass
+        self.trees = None
 
     def load(self, path_to_file):
         pass
 
-    def _fit(self, data):
-        self._attributes = list(data.columns)
+    def _fit(self, X):
+        self._attributes = list(X.columns)
         self._attributes.remove(self.classKey)
-        self._labels = list(data[self.classKey].unique())
-        self.mainNode = Tree(self._attributes, self._labels, classKey=self.classKey, F=self.F)
-        self.mainNode.fit(data)
+        self._labels = list(X[self.classKey].unique())
+
+        # tree init
+        self.trees = [Tree(
+                    self._attributes, self._labels, classKey=self.classKey, F=self.F
+                ) for _ in range(self.num_trees)]
+
+        if self.n_jobs == 1:
+            for t in self.trees:
+                t.fit(X)
+        else:
+            from functools import partial
+            with mp.Pool(self.n_jobs) as p:
+                self.trees = p.map(partial(self._fit_tree, X=X), self.trees)
+
+    def _fit_tree(self, tree, X):
+        return tree.fit(X)
 
     def _predict(self, X):
+        if self.trees is None:
+            raise ValueError('fit has not been called')
         pass
 
     def _validate_train_data(self, X, Y=None):
@@ -60,7 +78,7 @@ class RandomForestClassifier(BaseClassifier):
             f.write(msg)
 
     def __str__(self):
-        return self.mainNode.__str__()
+        return '\n\n'.join(f'Tree {i}: {tree}' for i, tree in enumerate(self.trees))
 
     def __repr__(self):
         return str(self)
@@ -78,6 +96,7 @@ class Node(BaseClassifier):
         self.branches = {True: None, False: None}
         self.type = None # 'numerical' or 'categorical'
         self.nodeGini = None
+        self.trained = False
 
     def fit(self, X):
         self.nodeGini = gini_index(X, classKey=self._classKey)
@@ -90,6 +109,7 @@ class Node(BaseClassifier):
         self.branches[True] = self.__create_branch(true_split)
         self.branches[False] = self.__create_branch(false_split)
 
+        self.trained = True
         return self
 
     def __create_branch(self, X):
@@ -109,10 +129,14 @@ class Node(BaseClassifier):
     def __find_best_split(self, X):
         best_gain = 0
         best_feature, best_value = None, None
-        if self.F < 0 or len(self._attributes) > self.F:
+
+        if self.F < 0 or len(self._attributes) < self.F:
+            # use all attributes
             features = self._attributes
         else:
+            # sample F attributes
             features = random.sample(self._attributes, k=self.F)
+
         for feature in features:
             for value in X[feature].unique():
                 true_split, false_split = self.__try_split(X, feature, value)
@@ -127,7 +151,7 @@ class Node(BaseClassifier):
                 if gain > best_gain:
                     best_gain, best_feature, best_value = gain, feature, value
 
-        self.type = 'numerical' if is_numeric else 'categorical'
+        self.type = 'numerical' if is_numeric(value) else 'categorical'
         self.feature = best_feature
         self.value = best_value
         return best_gain
@@ -148,11 +172,13 @@ class Node(BaseClassifier):
         return X[feature] == value
 
     def predict(self, X):
-        if self.nodeGini is None:
+        if not self.trained:
             raise ValueError('fit the node first by calling node.fit(X)')
         raise NotImplementedError
 
     def __str__(self, level=0, clearlvls=None, key=None):
+        if not self.trained:
+            return 'Node/Tree not trained'
         clearlvls = [] if clearlvls is None else clearlvls
 
         padding = ''.join(['│   ']*(level))
@@ -216,10 +242,10 @@ class Leaf(BaseClassifier):
         return self
 
     def predict(self, X):
-        pass
+        return self.predictions
 
     def __str__(self):
-        return str(self.predictions)
+        return str({k: round(v, 2) for k, v in self.predictions.items()})
 
     def __repr__(self):
         return self.__str__()
