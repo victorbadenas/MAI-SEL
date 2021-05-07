@@ -89,11 +89,11 @@ class RandomForestClassifier(BaseClassifier):
             raise NotImplementedError
 
     def _save_to_json(self, path_to_file):
-        # jsondata = copy.deepcopy(self.__dict__)
-        # jsondata['mainNode'] = jsondata['mainNode'].to_dict()
-        # with open(path_to_file, 'w') as f:
-        #     json.dump(jsondata, f, indent=4)
-        pass
+        jsondata = copy.deepcopy(self.__dict__)
+        for i, tree in enumerate(jsondata['trees']):
+            jsondata['trees'][i] = tree.to_dict()
+        with open(path_to_file, 'w') as f:
+            json.dump(jsondata, f, indent=4)
 
     def _save_to_txt(self, path_to_file):
         msg = str(self)
@@ -254,6 +254,11 @@ class Node(BaseClassifier):
         else:
             return f'{self.feature} == {self.value}'
 
+    def to_dict(self):
+        jsonData = copy.deepcopy(self.__dict__)
+        for k, branch in jsonData['branches'].items():
+            jsonData['branches'] = branch.to_dict()
+        return jsonData
 
 class Tree(Node):
     # just another name for the same class. Just because does not make
@@ -282,3 +287,6 @@ class Leaf(BaseClassifier):
 
     def __repr__(self):
         return self.__str__()
+
+    def to_dict(self):
+        return self.predictions

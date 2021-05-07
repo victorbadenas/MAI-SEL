@@ -68,10 +68,10 @@ class Trainer:
         logging.info(f'accuracy: {accuracy*100:.2f}%')
 
         if self.output_dir is not None:
-            # json_model_path = self.output_dir / (self.dataset.name + '.json')
+            json_model_path = self.output_dir / (self.dataset.name + '.json')
             tree_model_path = self.output_dir / (self.dataset.name + '.trees')
-            # logging.info(f"Saving json model to {json_model_path}")
-            # rfc.save(json_model_path)
+            logging.info(f"Saving json model to {json_model_path}")
+            rfc.save(json_model_path)
             logging.info(f"Saving tree to {tree_model_path}")
             rfc.save(tree_model_path)
 
