@@ -29,8 +29,8 @@ class Leaf:
         self._value = gini_table.index[np.argmin(gini_table)]
 
     def create_leaves(self, data):
-        pos = data[data[self._attribute] == self._value]
-        neg = data[data[self._attribute] != self._value]
+        pos = data[data[self._attribute] < self._value]
+        neg = data[data[self._attribute] >= self._value]
         possible_values = [self._value, 'other']
         self.branches = dict(zip(possible_values, [None]*2))
         for branch, branchdata in zip(possible_values, [pos, neg]):

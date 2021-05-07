@@ -1,15 +1,20 @@
 import os
 import sys
+import random
 import argparse
 import logging
+import numpy as np
 from pathlib import Path
 
 sys.path.append(os.path.dirname(__file__))
 
 from dataset import PandasDataset
 from decision_forest import DecisionForestClassifier
-from cart import CART
+from random_forest import RandomForestClassifier
 
+def set_seeds(seed):
+    np.random.seed(seed)
+    random.seed(seed)
 
 def set_logger(log_file_path, debug=False):
     level = logging.DEBUG if debug else logging.INFO
@@ -51,11 +56,11 @@ class Trainer:
         X = self.dataset.input_data
         Y = self.dataset.target_data
 
-        cart = CART()
+        rfc = RandomForestClassifier()
 
-        y = cart.fit_predict(X, Y)
+        y = rfc.fit_predict(X, Y)
 
-        logging.debug(f'\n{cart}')
+        logging.debug(f'\n{rfc}')
 
         # accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
         # coverage = sum(1 for item in y if y is not None)/len(y)
@@ -64,15 +69,16 @@ class Trainer:
         # logging.info(f'accuracy: {accuracy*100:.2f}%')
         # logging.info(f'coverage: {coverage*100:.2f}%')
 
-        if self.output_dir is not None:
-            json_model_path = self.output_dir / (self.dataset.name + '.json')
-            tree_model_path = self.output_dir / (self.dataset.name + '.tree')
-            logging.info(f"Saving json model to {json_model_path}")
-            cart.save(json_model_path)
-            logging.info(f"Saving tree to {tree_model_path}")
-            cart.save(tree_model_path)
+        # if self.output_dir is not None:
+        #     json_model_path = self.output_dir / (self.dataset.name + '.json')
+        #     tree_model_path = self.output_dir / (self.dataset.name + '.tree')
+        #     logging.info(f"Saving json model to {json_model_path}")
+        #     rfc.save(json_model_path)
+        #     logging.info(f"Saving tree to {tree_model_path}")
+        #     rfc.save(tree_model_path)
 
 if __name__ == "__main__":
+    set_seeds(42)
     args = parseArgumentsFromCommandLine()
     set_logger(args.logger, debug=args.debug)
     Trainer(args)()
