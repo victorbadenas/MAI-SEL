@@ -20,7 +20,7 @@ class BaseClassifier:
         return self._fit(data)
 
     def predict(self, X):
-        self._predict(X)
+        return self._predict(X)
 
     def fit_predict(self, X, Y):
         self.fit(X, Y)
