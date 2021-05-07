@@ -56,9 +56,9 @@ class Trainer:
         X = self.dataset.input_data
         Y = self.dataset.target_data
 
-        rfc = RandomForestClassifier()
+        rfc = RandomForestClassifier(F=2, num_trees=3, n_jobs=20)
 
-        y = rfc.fit_predict(X, Y)
+        rfc.fit(X, Y)
 
         logging.debug(f'\n{rfc}')
 
@@ -69,16 +69,16 @@ class Trainer:
         # logging.info(f'accuracy: {accuracy*100:.2f}%')
         # logging.info(f'coverage: {coverage*100:.2f}%')
 
-        # if self.output_dir is not None:
-        #     json_model_path = self.output_dir / (self.dataset.name + '.json')
-        #     tree_model_path = self.output_dir / (self.dataset.name + '.tree')
-        #     logging.info(f"Saving json model to {json_model_path}")
-        #     rfc.save(json_model_path)
-        #     logging.info(f"Saving tree to {tree_model_path}")
-        #     rfc.save(tree_model_path)
+        if self.output_dir is not None:
+            # json_model_path = self.output_dir / (self.dataset.name + '.json')
+            tree_model_path = self.output_dir / (self.dataset.name + '.trees')
+            # logging.info(f"Saving json model to {json_model_path}")
+            # rfc.save(json_model_path)
+            logging.info(f"Saving tree to {tree_model_path}")
+            rfc.save(tree_model_path)
 
 if __name__ == "__main__":
-    set_seeds(42)
+    # set_seeds(42)
     args = parseArgumentsFromCommandLine()
     set_logger(args.logger, debug=args.debug)
     Trainer(args)()
