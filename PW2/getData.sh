@@ -12,7 +12,7 @@ mkdir data/
 
 get_data https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data 'buying,maint,doors,persons,lug_boot,safety,class'
 
-get_data https://archive.ics.uci.edu/ml/machine-learning-databases/credit-screening/crx.data 'A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16'
+get_data https://archive.ics.uci.edu/ml/machine-learning-databases/chess/king-rook-vs-king-pawn/kr-vs-kp.data 'bkblk,bknwy,bkon8,bkona,bkspr,bkxbq,bkxcr,bkxwp,blxwp,bxqsq,cntxt,dsopp,dwipd,hdchk,katri,mulch,qxmsq,r2ar8,reskd,reskr,rimmx,rkxwp,rxmsq,simpl,skach,skewr,skrxp,spcop,stlmt,thrsk,wkcti,wkna8,wknck,wkovl,wkpos,wtoeg,class'
 
 get_data https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data 'sepal_length,sepal_width,petal_length,petal_width,class'
 
