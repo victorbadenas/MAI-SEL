@@ -63,15 +63,15 @@ class BaseForestClassifier(ForestInterpreter, BaseClassifier):
         self._attributes.remove(self.classKey)
         self._labels = list(X[self.classKey].unique())
 
-        self._init_trees()
+        self.trees = [None] * self.num_trees
 
         if self.n_jobs == 1:
-            for t in self.trees:
-                t = self._fit_tree(t, X)
+            for idx in range(self.num_trees):
+                self.trees[idx] = self._fit_tree(idx, X)
         else:
             from functools import partial
             with mp.Pool(self.n_jobs) as p:
-                self.trees = p.map(partial(self._fit_tree, X=X), self.trees)
+                self.trees = p.map(partial(self._fit_tree, X=X), range(self.num_trees))
 
         # filter trees that are none
         self.trees = filterNone(self.trees)

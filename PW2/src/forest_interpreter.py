@@ -2,8 +2,7 @@ import json
 import logging
 import numpy as np
 import multiprocessing as mp
-from base_classifier import BaseClassifier
-from tree_units import Tree, Node, Leaf
+from tree_units import Tree
 from utils.data import filterNone
 
 class ForestInterpreter:

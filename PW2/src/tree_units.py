@@ -38,6 +38,15 @@ class Node(BaseClassifier):
         self.trained = True
         return self
 
+    def predict(self, X):
+        if not self.trained:
+            raise ValueError('fit the node first by calling node.fit(X)')
+        if self.type == 'numerical':
+            branch = self.__compare_numerical(X)
+        else:
+            branch = self.__compare_categorical(X)
+        return self.branches[branch].predict(X)
+
     def __create_branch(self, X):
         if len(X) == 1:
             self.__create_leaf(X)
@@ -96,15 +105,6 @@ class Node(BaseClassifier):
     @staticmethod
     def __categorical_mask(X, feature, value):
         return X[feature] == value
-
-    def predict(self, X):
-        if not self.trained:
-            raise ValueError('fit the node first by calling node.fit(X)')
-        if self.type == 'numerical':
-            branch = self.__compare_numerical(X)
-        else:
-            branch = self.__compare_categorical(X)
-        return self.branches[branch].predict(X)
 
     def __compare_categorical(self, x):
         return x[self.feature] == self.value
