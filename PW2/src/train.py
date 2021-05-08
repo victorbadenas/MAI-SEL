@@ -56,7 +56,7 @@ class Trainer:
         X = self.dataset.input_data
         Y = self.dataset.target_data
 
-        rfc = RandomForestClassifier(F=2, num_trees=2, n_jobs=2)
+        rfc = RandomForestClassifier(F=2, num_trees=2, n_jobs=-1)
 
         y = rfc.fit_predict(X, Y)
 

@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import argparse
 import logging
 from pathlib import Path
@@ -50,20 +51,7 @@ class Inference:
         X = self.dataset.input_data
         Y = self.dataset.target_data
 
-        logging.info(f'loading rules from {self.rules_path}')
-        ri = RuleInterpreter(self.rules_path)
-        logging.info(f'rules loaded successfully')
 
-        logging.info('inferring')
-        y = ri.predict(X)
-        logging.info('infered!')
-
-        accuracy = sum(1 for idx in range(len(y)) if y[idx] == Y[idx])/len(y)
-        coverage = sum(1 for item in y if y is not None)/len(y)
-
-        logging.info(f'Inference results for {self.dataset.dataset_path}')
-        logging.info(f'accuracy: {accuracy*100:.2f}%')
-        logging.info(f'coverage: {coverage*100:.2f}%')
 
 if __name__ == "__main__":
     args = parseArgumentsFromCommandLine()
