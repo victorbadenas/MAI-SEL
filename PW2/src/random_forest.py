@@ -112,6 +112,17 @@ class RandomForestClassifier(BaseClassifier):
     def __repr__(self):
         return str(self)
 
+    def get_feature_importance(self):
+        if self.trees is None:
+            logging.error('Model not fitted')
+            raise ValueError('Model not fitted')
+        counts = dict(zip(self._attributes, [0]*len(self._attributes)))
+        for tree in self.trees:
+            tree_counts = tree.get_feature_importance()
+            for k in counts:
+                counts[k] += tree_counts[k]
+        return counts
+
 
 class Node(BaseClassifier):
     def __init__(self, attributes, labels, classKey='class', F=-1):
@@ -270,6 +281,18 @@ class Node(BaseClassifier):
         for k, branch in jsonData['branches'].items():
             jsonData['branches'] = branch.to_dict()
         return jsonData
+
+    def get_feature_importance(self):
+        counts = dict(zip(self._attributes, [0]*len(self._attributes)))
+        for branch in self.branches.values():
+            if isinstance(branch, Leaf):
+                continue
+            else:
+                feat_counts = branch.get_feature_importance()
+            for k in counts:
+                counts[k] += feat_counts[k]
+        counts[self.feature] += 1
+        return counts
 
 class Tree(Node):
     # just another name for the same class. Just because does not make
