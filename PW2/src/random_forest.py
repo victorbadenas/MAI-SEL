@@ -129,6 +129,8 @@ class Node(BaseClassifier):
         self.trained = False
 
     def fit(self, X):
+        if len(X) == 0:
+            return
         self.nodeGini = gini_index(X, classKey=self._classKey)
         gain = self.__find_best_split(X)
         if gain == 0:
@@ -181,9 +183,9 @@ class Node(BaseClassifier):
                 if gain > best_gain:
                     best_gain, best_feature, best_value = gain, feature, value
 
-        self.type = 'numerical' if is_numeric(value) else 'categorical'
+        self.type = 'numerical' if is_numeric(best_value) else 'categorical'
         self.feature = best_feature
-        self.value = best_value
+        self.value = best_value.item() if hasattr(best_value, 'item') else best_value
         return best_gain
 
     def __split(self, X):
@@ -263,6 +265,8 @@ class Node(BaseClassifier):
 
     def to_dict(self):
         jsonData = copy.deepcopy(self.__dict__)
+        if any(isinstance(v, np.int64) for v in jsonData.values()):
+            print()
         for k, branch in jsonData['branches'].items():
             jsonData['branches'] = branch.to_dict()
         return jsonData
@@ -296,4 +300,6 @@ class Leaf(BaseClassifier):
         return self.__str__()
 
     def to_dict(self):
+        if any(isinstance(v, np.int64) for v in self.predictions.values()):
+            print()
         return self.predictions
