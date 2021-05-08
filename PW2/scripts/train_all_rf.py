@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import random
 import argparse
 import logging
@@ -53,8 +54,9 @@ def fit_dataset(dataset, output_dir=None):
     for F, NT in product(Fs, NTs):
         logging.info(f"fitting for F={F}, NT={NT}")
         rfc = RandomForestClassifier(F=F, num_trees=NT, n_jobs=-1, classKey=Y.name)
+        st = time.time()
         rfc.fit(X, Y)
-        logging.info(f"model fitted")
+        logging.info(f"model fitted in {time.time() - st:.2f}s")
         if output_dir:
             logging.info(f'Saving...')
             save_model(rfc, dataset.name, output_dir, F=F, NT=NT)
