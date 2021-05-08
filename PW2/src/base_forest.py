@@ -42,13 +42,14 @@ class BaseForestClassifier(ForestInterpreter, BaseClassifier):
                 continue
             tree_counts = tree.get_feature_importance()
             for k in counts:
-                counts[k] += tree_counts[k]
+                if k in tree_counts:
+                    counts[k] += tree_counts[k]
         return counts
 
     def _reset(self):
         self.trees = None
 
-    def _fit_tree(self, tree, X):
+    def _fit_tree(self, tree_idx, X):
         raise NotImplementedError('abstract method')
 
     def _init_trees(self):
