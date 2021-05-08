@@ -16,6 +16,7 @@ from utils.math import delta_gini, gini_index
 class RandomForestClassifier(BaseClassifier):
     def __init__(self, headers=None, F=-1, num_trees=10, classKey=None, n_jobs=1):
         super(RandomForestClassifier, self).__init__(headers)
+        self.type = self.__class__.__name__
         self.classKey = classKey
         self.F = F
         self.num_trees = num_trees
@@ -101,7 +102,7 @@ class RandomForestClassifier(BaseClassifier):
             f.write(msg)
 
     def __str__(self):
-        return '\n\n'.join(f'Tree {i}: {tree}' for i, tree in enumerate(self.trees))
+        return '\n\n'.join(f'Tree {i}:\n{tree}' for i, tree in enumerate(self.trees))
 
     def __repr__(self):
         return str(self)
@@ -114,6 +115,7 @@ class Node(BaseClassifier):
         self._labels = labels
         self._classKey = classKey
         self.F = F
+        self.type = self.__class__.__name__
 
     def _reset(self):
         self.branches = {True: None, False: None}
@@ -270,7 +272,7 @@ class Leaf(BaseClassifier):
     def __init__(self, classKey='class'):
         super(Leaf, self).__init__()
         self.classKey = classKey
-
+        self.type = self.__class__.__name__
     def _reset(self):
         self.predictions = None
 
