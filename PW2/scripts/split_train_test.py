@@ -9,6 +9,8 @@ sys.path.append('src/')
 
 from dataset import PandasDataset
 
+np.random.seed(42)
+
 def set_logger(log_file_path, debug=False):
     level = logging.DEBUG if debug else logging.INFO
     logging_format = '[%(asctime)s][%(filename)s(%(lineno)d):%(funcName)s]-%(levelname)s: %(message)s'
