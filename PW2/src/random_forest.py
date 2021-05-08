@@ -47,7 +47,12 @@ class RandomForestClassifier(BaseClassifier):
                 self.trees = p.map(partial(self._fit_tree, X=X), self.trees)
 
     def _fit_tree(self, tree, X):
+        X = self.__get_bootstrapped_dataset(X)
         return tree.fit(X)
+
+    @staticmethod
+    def __get_bootstrapped_dataset(X):
+        return X.sample(n=len(X), axis='rows', replace=True)
 
     def _predict(self, X):
         if self.trees is None:
