@@ -45,6 +45,9 @@ class RandomForestClassifier(BaseClassifier):
             from functools import partial
             with mp.Pool(self.n_jobs) as p:
                 self.trees = p.map(partial(self._fit_tree, X=X), self.trees)
+        if not all(t.trained for t in self.trees):
+            fitted = sum(t.trained for t in self.trees)
+            logging.warning(f'Not all the trees have been fitted. {len(self.trees) - fitted} of {len(self.trees)} have not been fitted')
 
     def _fit_tree(self, tree, X):
         X = self.__get_bootstrapped_dataset(X)
@@ -65,6 +68,7 @@ class RandomForestClassifier(BaseClassifier):
             from functools import partial
             with mp.Pool(self.n_jobs) as p:
                 predictions = list(p.map(partial(self._predict_tree, X=X), self.trees))
+        predictions = list(filter(lambda i: i is not None, predictions)) # remove predictions from non filtered trees
         predictions = self._aggregate_predictions(predictions)
         return np.array(predictions)
 
@@ -80,6 +84,8 @@ class RandomForestClassifier(BaseClassifier):
         return final_predictions
 
     def _predict_tree(self, tree, X):
+        if not tree.trained:
+            return 
         return [tree.predict(x) for x in X.to_dict('records')]  # convert to list(dict()) for speeding up iterations
 
     def _validate_train_data(self, X, Y=None):
@@ -95,8 +101,15 @@ class RandomForestClassifier(BaseClassifier):
             raise NotImplementedError
 
     def _save_to_json(self, path_to_file):
+        if self.trees is None:
+            logging.error('fit the model first')
+            raise ValueError('fit the model first')
         jsondata = copy.deepcopy(self.__dict__)
+
         for i, tree in enumerate(jsondata['trees']):
+            if not tree.trained:
+                jsondata['trees'][i] = None
+                continue
             jsondata['trees'][i] = tree.to_dict()
         with open(path_to_file, 'w') as f:
             json.dump(jsondata, f, indent=4)
@@ -118,6 +131,8 @@ class RandomForestClassifier(BaseClassifier):
             raise ValueError('Model not fitted')
         counts = dict(zip(self._attributes, [0]*len(self._attributes)))
         for tree in self.trees:
+            if not tree.trained:
+                continue
             tree_counts = tree.get_feature_importance()
             for k in counts:
                 counts[k] += tree_counts[k]
@@ -140,8 +155,6 @@ class Node(BaseClassifier):
         self.trained = False
 
     def fit(self, X):
-        if len(X) == 0:
-            return
         self.nodeGini = gini_index(X, classKey=self._classKey)
         gain = self.__find_best_split(X)
         if gain == 0:
@@ -276,8 +289,6 @@ class Node(BaseClassifier):
 
     def to_dict(self):
         jsonData = copy.deepcopy(self.__dict__)
-        if any(isinstance(v, np.int64) for v in jsonData.values()):
-            print()
         for k, branch in jsonData['branches'].items():
             jsonData['branches'] = branch.to_dict()
         return jsonData
@@ -323,6 +334,4 @@ class Leaf(BaseClassifier):
         return self.__str__()
 
     def to_dict(self):
-        if any(isinstance(v, np.int64) for v in self.predictions.values()):
-            print()
         return self.predictions
