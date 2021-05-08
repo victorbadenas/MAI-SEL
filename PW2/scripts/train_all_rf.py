@@ -1,5 +1,6 @@
 import os
 import sys
+import tqdm
 import time
 import json
 import random
@@ -53,21 +54,26 @@ def fit_dataset(dataset, output_dir=None, n_threads=1):
     Fs = set([1, 3, int(np.log2(n_features + 1)), int(np.sqrt(n_features))])
     NTs = 1, 10, 25, 50, 75, 100
 
-    for F, NT in product(Fs, NTs):
+    for F, NT in tqdm.tqdm(product(Fs, NTs), total=len(Fs) * len(NTs)):
         logging.info(f"fitting for F={F}, NT={NT}")
         rfc = RandomForestClassifier(F=F, num_trees=NT, n_jobs=n_threads, classKey=Y.name)
         st = time.time()
         rfc.fit(X, Y)
-        logging.info(f"model fitted in {time.time() - st:.2f}s")
+        en = time.time() - st
+        y = rfc.predict(X)
+        acc = (Y == y).mean()
+        logging.info(f"model fitted in {en:.2f}s with train accuracy {acc*100:.2f}%")
         if output_dir:
             logging.info(f'Saving...')
-            save_model(rfc, dataset.name, output_dir, F=F, NT=NT)
+            save_model(rfc, dataset.name, output_dir, acc, F=F, NT=NT)
 
-def save_model(model, dataset_name, output_dir, **parameters):
+def save_model(model, dataset_name, output_dir, acc, **parameters):
     exp_folder = 'RF_' + '_'.join(f'{k}-{v}' for k,v in parameters.items())
     json_model_path = output_dir / dataset_name / exp_folder / 'model.json'
     tree_model_path = output_dir / dataset_name / exp_folder / 'model.trees'
+    results_path = output_dir / dataset_name / exp_folder / 'results.txt'
     counts_path = output_dir / dataset_name / exp_folder / 'feat_counts.json'
+
     (output_dir / dataset_name / exp_folder).mkdir(parents=True, exist_ok=True)
     logging.info(f"Saving json model to {json_model_path}")
     model.save(json_model_path)
@@ -79,6 +85,8 @@ def save_model(model, dataset_name, output_dir, **parameters):
         json.dump(feat_counts, f, indent=4)
     logging.info(f"node feature counts: {feat_counts}")
 
+    with open(results_path, 'w') as f:
+        f.write(f'Train accuracy: {acc*100:.2f}%')
 
 if __name__ == "__main__":
     set_seeds(42)

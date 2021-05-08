@@ -1,5 +1,6 @@
 import os
 import sys
+import tqdm
 import random
 import argparse
 import logging
@@ -33,6 +34,7 @@ def parseArgumentsFromCommandLine():
     parser.add_argument('-l', "--logger", type=Path, default="log/all_rf_test.log")
     parser.add_argument('-i', "--dataset_paths", action='append', required=True)
     parser.add_argument('-d', "--debug", action="store_true", default=False)
+    parser.add_argument('-t', "--num_threads", type=int, default=1, help='number of threads for RandomForestClassifier. -1 for using all threads as given by os.cpu_count(). default=1')
     parser.add_argument('-md', "--models_dir", type=Path, default='.models/')
     return parser.parse_args()
 
@@ -40,22 +42,22 @@ def main(args):
     for dataset_path in args.dataset_paths:
         dataset = PandasDataset(dataset_path)
         logging.info(dataset.name)
-        fit_dataset(dataset, models_dir=args.models_dir)
+        fit_dataset(dataset, models_dir=args.models_dir, n_jobs=args.num_threads)
 
-def fit_dataset(dataset, models_dir=None):
+def fit_dataset(dataset, models_dir=None, n_jobs=1):
     X = dataset.input_data
     Y = dataset.target_data
 
-    model_folders = (models_dir / dataset.name).glob('*')
+    model_folders = list((models_dir / dataset.name).glob('*'))
 
-    for model_folder in model_folders:
+    for model_folder in tqdm.tqdm(model_folders):
         model_json_path = model_folder / 'model.json'
-        fi = forest_from_json(model_json_path)
+        fi = forest_from_json(model_json_path, n_jobs=n_jobs)
         y = fi.predict(X)
         acc = (Y == y).mean()
         logging.info(f'model {model_folder}: acc={acc*100:.2f}%')
-        with open(model_folder / 'results.txt', 'w') as f:
-            f.write(f'Accuracy: {acc*100:.2f}%')
+        with open(model_folder / 'results.txt', 'a+') as f:
+            f.write(f'Test accuracy: {acc*100:.2f}%')
 
 
 if __name__ == "__main__":
