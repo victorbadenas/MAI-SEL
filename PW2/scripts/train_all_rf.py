@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import json
 import random
 import argparse
 import logging
@@ -31,19 +32,20 @@ def set_logger(log_file_path, debug=False):
 
 def parseArgumentsFromCommandLine():
     parser = argparse.ArgumentParser("")
-    parser.add_argument('-l', "--logger", type=Path, default="log/all_rf.log")
+    parser.add_argument('-l', "--logger", type=Path, default=f"log/{os.path.splitext(os.path.basename(__file__))[0]}.log")
     parser.add_argument('-i', "--dataset_paths", action='append', required=True)
-    parser.add_argument('-d', "--debug", action="store_true", default=False)
     parser.add_argument('-f', "--output_dir", type=Path, required=True)
+    parser.add_argument('-d', "--debug", action="store_true", default=False)
+    parser.add_argument('-t', "--num_threads", type=int, default=1, help='number of threads for RandomForestClassifier. -1 for using all threads as given by os.cpu_count(). default=1')
     return parser.parse_args()
 
 def main(args):
     for dataset_path in args.dataset_paths:
         dataset = PandasDataset(dataset_path)
         logging.info(dataset.name)
-        fit_dataset(dataset, output_dir=args.output_dir)
+        fit_dataset(dataset, output_dir=args.output_dir, n_threads=args.num_threads)
 
-def fit_dataset(dataset, output_dir=None):
+def fit_dataset(dataset, output_dir=None, n_threads=1):
     X = dataset.input_data
     Y = dataset.target_data
     n_features = len(dataset.columns)-1
@@ -53,7 +55,7 @@ def fit_dataset(dataset, output_dir=None):
 
     for F, NT in product(Fs, NTs):
         logging.info(f"fitting for F={F}, NT={NT}")
-        rfc = RandomForestClassifier(F=F, num_trees=NT, n_jobs=-1, classKey=Y.name)
+        rfc = RandomForestClassifier(F=F, num_trees=NT, n_jobs=n_threads, classKey=Y.name)
         st = time.time()
         rfc.fit(X, Y)
         logging.info(f"model fitted in {time.time() - st:.2f}s")
@@ -65,11 +67,18 @@ def save_model(model, dataset_name, output_dir, **parameters):
     exp_folder = 'RF_' + '_'.join(f'{k}-{v}' for k,v in parameters.items())
     json_model_path = output_dir / dataset_name / exp_folder / 'model.json'
     tree_model_path = output_dir / dataset_name / exp_folder / 'model.trees'
+    counts_path = output_dir / dataset_name / exp_folder / 'feat_counts.json'
     (output_dir / dataset_name / exp_folder).mkdir(parents=True, exist_ok=True)
     logging.info(f"Saving json model to {json_model_path}")
     model.save(json_model_path)
     logging.info(f"Saving tree to {tree_model_path}")
     model.save(tree_model_path)
+
+    feat_counts = model.get_feature_importance()
+    with open(counts_path, 'w') as f:
+        json.dump(feat_counts, f, indent=4)
+    logging.info(f"node feature counts: {feat_counts}")
+
 
 if __name__ == "__main__":
     set_seeds(42)
