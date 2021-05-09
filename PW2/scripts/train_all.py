@@ -7,7 +7,6 @@ import random
 import argparse
 import logging
 import numpy as np
-from functools import partial
 from itertools import product
 from pathlib import Path
 
@@ -26,9 +25,9 @@ MODELS = {
 
 MODEL_F = {
     "RandomForestClassifier": lambda i: set([1, 3, int(np.log2(i + 1)), int(np.sqrt(i))]),
-    "DecisionForestClassifier": lambda i: list(set([int(.25*i), int(.5*i), int(.75*i)])) + [partial(random.randint, 1)],
+    "DecisionForestClassifier": lambda i: list(set([int(.25*i), int(.5*i), int(.75*i)])) + ['random'],
     "RF": lambda i: set([1, 3, int(np.log2(i + 1)), int(np.sqrt(i))]),
-    "DF": lambda i: list(set([int(.25*i), int(.5*i), int(.75*i)])) + [partial(random.randint, 1)]
+    "DF": lambda i: list(set([int(.25*i), int(.5*i), int(.75*i)])) + ['random']
 }
 
 def set_seeds(seed):
@@ -79,12 +78,7 @@ def fit_dataset(dataset, output_dir=None, n_threads=1, model_name=""):
     csv_f.write(f'name,F,NT,fit_time(s),train_acc\n')
 
     for F, NT in tqdm.tqdm(product(Fs, NTs), total=len(Fs) * len(NTs)):
-        if isinstance(F, partial):
-            logging.info(f"fitting for F=callable({F.func.__name__})', NT={NT}")
-        elif hasattr(F, '__name__'):
-            logging.info(f"fitting for F=callable({F.__name__})', NT={NT}")
-        else:
-            logging.info(f"fitting for F={F}, NT={NT}")
+        logging.info(f"fitting for F={F}, NT={NT}")
         rfc = MODELS[model_name](F=F, num_trees=NT, n_jobs=n_threads, classKey=Y.name)
         st = time.time()
         rfc.fit(X, Y)
@@ -94,10 +88,6 @@ def fit_dataset(dataset, output_dir=None, n_threads=1, model_name=""):
         logging.info(f"model fitted in {en:.2f}s with train accuracy {acc*100:.2f}%")
         if output_dir:
             logging.info(f'Saving...')
-            if isinstance(F, partial):
-                F = f'callable({F.func.__name__})'
-            elif hasattr(F, '__name__'):
-                F = f'callable({F.__name__})'
             csv_f.write(f'{model_name},{F},{NT},{en},{acc}\n')
             save_model(rfc, model_name, dataset.name, output_dir, acc, F=F, NT=NT)
     csv_f.close()
