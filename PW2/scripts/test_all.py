@@ -1,10 +1,12 @@
 import os
 import sys
+import time
 import tqdm
 import random
 import argparse
 import logging
 import numpy as np
+import pandas as pd
 from itertools import product
 from pathlib import Path
 
@@ -62,14 +64,18 @@ def fit_dataset(dataset, models_dir=None, n_jobs=1):
         model_name = model_folder.parts[-1]
         model_json_path = model_folder / 'model.json'
         fi = forest_from_json(model_json_path, n_jobs=n_jobs)
+        st = time.time()
         y = fi.predict(X)
+        en = time.time() - st
         acc = (Y == y).mean()
-        logging.info(f'model {model_folder}: acc={acc*100:.2f}%')
+        logging.info(f'model {model_folder}: acc={acc*100:.2f}% in {en:.2f}s')
         with open(model_folder / 'results.txt', 'a+') as f:
             f.write(f'Test accuracy: {acc*100:.2f}%')
-        csv_f.write(f'{model_name},{acc}\n')
+        csv_f.write(f'{model_name},{en},{acc}\n')
     csv_f.close()
 
+    # sort_by name
+    pd.read_csv(models_dir / dataset.name / 'test.csv', index_col=0).sort_index().to_csv(models_dir / dataset.name / 'sorted_test.csv')
 
 if __name__ == "__main__":
     set_seeds(42)
