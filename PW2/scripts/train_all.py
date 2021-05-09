@@ -71,7 +71,7 @@ def fit_dataset(dataset, output_dir=None, n_threads=1, model_name=""):
     n_features = len(dataset.columns)-1
 
     # Fs = set([1, 3, int(np.log2(n_features + 1)), int(np.sqrt(n_features))])
-    Fs = [MODEL_F[model_name](n_features)[-1]]
+    Fs = MODEL_F[model_name](n_features)
     NTs = 1, 10, 25, 50, 75, 100
 
     (output_dir / dataset.name).mkdir(exist_ok=True, parents=True)
