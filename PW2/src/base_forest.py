@@ -40,7 +40,7 @@ class BaseForestClassifier(ForestInterpreter, BaseClassifier):
         for tree in self.trees:
             if not tree.trained:
                 continue
-            tree_counts = tree.get_feature_importance()
+            tree_counts = tree.get_feature_importance(sort=False)
             for k in counts:
                 if k in tree_counts:
                     counts[k] += tree_counts[k]
@@ -55,10 +55,6 @@ class BaseForestClassifier(ForestInterpreter, BaseClassifier):
         raise NotImplementedError('abstract method')
 
     def _init_trees(self):
-        raise NotImplementedError('abstract method')
-
-    @staticmethod
-    def __get_bootstrapped_dataset(X):
         raise NotImplementedError('abstract method')
 
     def _fit(self, X):
