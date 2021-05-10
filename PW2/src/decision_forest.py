@@ -7,7 +7,6 @@ class DecisionForestClassifier(BaseForestClassifier):
     def _fit_tree(self, tree_idx, X):
         self.__restart_seed(tree_idx)
         X = self.__select_features_from_dataset(tree_idx, X)
-        print(X.columns)
         attributes = list(X.columns)[:-1]
         tree = Tree(attributes, self._labels, classKey=self.classKey, F=-1)
         return tree.fit(X)
