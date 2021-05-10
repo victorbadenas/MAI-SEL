@@ -1,0 +1,53 @@
+\section{Datasets}
+
+The datasets used for the comparison were retrieved from the UCI dataset repository \cite{UCI}. The datasets chosen are all exclusively categorical without any missing values, as those are the two aspects that prism cannot handle well. The datasets chosen are the Car Evaluation Data Set, kr-vs-kp and hayes-roth datasets.
+
+\subsection{Car Evaluation Data Set}
+
+Car Evaluation Database\cite{CarDatasetUCI} was derived from a simple hierarchical decision model originally developed for the demonstration of DEX, M. Bohanec, V. Rajkovic: Expert system for decision making. Sistemica 1(1), pp. 145-157, 1990.).\;
+
+Input attributes are printed in lowercase. Besides the target concept (CAR), the model includes three intermediate concepts: PRICE, TECH, COMFORT. Every concept is in the original model related to its lower level descendants by a set of examples.\;
+
+The Car Evaluation Database contains examples with the structural information removed, i.e., directly relates CAR to the six input attributes: buying, maint, doors, persons, lug\_boot, safety.\;
+
+Because of known underlying concept structure, this database may be particularly useful for testing constructive induction and structure discovery methods.\;
+
+The characteristics of the dataset are as shown in \ref{table:Car-Evaluation}\;
+\begin{table}[ht]
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{||c|c||c|c||c|c||}
+            Data Set Characteristics: & Multivariate & Number of Instances: & 1728 & Area: & N/A \\
+            \hline
+            \hline
+            Attribute Characteristics: & Categorical & Number of Attributes: & 6 & Date Donated & 1997-06-01 \\
+            \hline
+            \hline
+            Associated Tasks: & Classification & Missing Values & No & Number of Web Hits: & 1347720 \\
+        \end{tabular}
+    }
+\caption{\label{table:Car-Evaluation}Car Evaluation Characteristics}
+\end{table}
+
+\subsection{Chess (King-Rook vs. King-Pawn) Data Set}
+
+The last dataset used in the project is the Chess (King-Rook vs. King-Pawn) Data Set \cite{KPvsKRDatasetUCI}, which consists of chess data from the match. The Dataset characteristics are shown in \ref{table:krvskp}.
+
+\begin{table}[ht]
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{||c|c||c|c||c|c||}
+            Data Set Characteristics: & Multivariate & Number of Instances: & 3196 & Area: & Game \\
+            \hline
+            \hline
+            Attribute Characteristics: & Categorical & Number of Attributes: & 36 & Date Donated & 1989-08-01 \\
+            \hline
+            \hline
+            Associated Tasks: & Classification & Missing Values? & No & Number of Web Hits: & 125000 \\
+        \end{tabular}
+    }
+\caption{\label{table:krvskp}Chess (King-Rook vs. King-Pawn) Characteristics}
+\end{table}
+
+
+\subsection{Iris Data Set}
+
+The last dataset used in the project is the Iris Data Set \cite{IrisDatasetUCI}, which consists of measurements of iris flowers' petal and sepals. The Dataset characteristics are not shown because the website at the time of writing was down.
