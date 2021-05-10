@@ -32,7 +32,7 @@ class BaseForestClassifier(ForestInterpreter, BaseClassifier):
             logging.error(msg)
             raise e
 
-    def get_feature_importance(self):
+    def get_feature_importance(self, sort=True):
         if self.trees is None:
             logging.error('Model not fitted')
             raise ValueError('Model not fitted')
@@ -44,6 +44,8 @@ class BaseForestClassifier(ForestInterpreter, BaseClassifier):
             for k in counts:
                 if k in tree_counts:
                     counts[k] += tree_counts[k]
+        if sort:
+            counts = dict(sorted(list(counts.items()), key=lambda x: x[1], reverse=True))
         return counts
 
     def _reset(self):
