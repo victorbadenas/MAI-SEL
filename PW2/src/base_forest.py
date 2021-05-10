@@ -40,7 +40,7 @@ class BaseForestClassifier(ForestInterpreter, BaseClassifier):
         for tree in self.trees:
             if not tree.trained:
                 continue
-            tree_counts = tree.get_feature_importance(sort=False)
+            tree_counts = tree.get_feature_importance()
             for k in counts:
                 if k in tree_counts:
                     counts[k] += tree_counts[k]
