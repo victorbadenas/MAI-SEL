@@ -1,2 +1,137 @@
 In this chapter we will discuss the instructions to run the code.
 
+\section{Execution instuctions}
+
+\subsection{Linux}
+
+Envionment install with conda:
+
+\begin{lstlisting}[language=bash]
+conda create --name sel3.9 python=3.9
+conda activate sel3.9
+pip install -r requirements.txt
+\end{lstlisting}
+
+To get the data in the right format:
+
+\begin{lstlisting}[language=bash]
+./getData.sh
+\end{lstlisting}
+
+The scripts contains the following:
+
+\lstinputlisting[]{../../getData.sh}
+
+which downloads the data, adds the corresponding header and splits the data into train and test.
+
+To run all the training and testing:
+
+\begin{lstlisting}[language=bash]
+./runAll.sh
+\end{lstlisting}
+
+the script contains the following:
+
+\lstinputlisting[]{../../runAll.sh}
+
+\subsection{Other OS}
+
+Environment install with conda:
+
+\begin{lstlisting}[language=bash]
+conda create --name sel3.9 python=3.9
+conda activate sel3.9
+pip install -r requirements.txt
+\end{lstlisting}
+
+if you are on a UNIX based system with bash you can run `./getData.sh` from CLI or follow the following steps:
+
+\begin{enumerate}
+  \item Download the datasets from UCI repository:
+  \begin{enumerate}
+    \item https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data
+    \item https://archive.ics.uci.edu/ml/machine-learning-databases/chess/king-rook-vs-king-pawn/kr-vs-kp.data
+    \item https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
+  \end{enumerate}
+  \item move them to the \textit{data/} folder
+  \item manually add the headers for the datasets:
+  \begin{enumerate}
+    \item kr-vs-kp.data: bkblk,bknwy,bkon8,bkona,bkspr,bkxbq,bkxcr,bkxwp,blxwp,bxqsq,cntxt\\,dsopp,dwipd,hdchk,katri,mulch,qxmsq,r2ar8,reskd,reskr,rimmx,rkxwp,rxmsq,simpl,skach,\\skewr,skrxp,spcop,stlmt,thrsk,wkcti,wkna8,wknck,wkovl,wkpos,wtoeg,class
+    \item car.data: buying,maint,doors,persons,lug\_boot,safety,class
+    \item iris.data: sepal\_length,sepal\_width,petal\_length,petal\_width,class
+  \end{enumerate}
+  \item split the data into train and test with the following commands:
+
+\begin{lstlisting}[language=bash]
+python scripts/split\_train\_test.py -i data/car.data
+python scripts/split\_train\_test.py -i data/kr-vs-kp.data
+python scripts/split\_train\_test.py -i data/iris.data
+\end{lstlisting}
+
+\end{enumerate}
+
+Once the data is formatted correctly into the `data/` subfolder, run the training and inference with the following commands:
+
+\begin{lstlisting}[language=bash]
+# Train random forest
+python scripts/train\_all.py \
+    -i data/iris.train \
+    -i data/car.train \
+    -i data/kr-vs-kp.train \
+    -f models/ \
+    -t -1 \
+    -m RF
+# Train Decision forest
+python scripts/train\_all.py \
+    -i data/iris.train \
+    -i data/car.train \
+    -i data/kr-vs-kp.train \
+    -f models/ \
+    -t -1 \
+    -m DF
+# Test all the datasets
+python scripts/test\_all.py \
+    -i data/iris.test \
+    -i data/car.test \
+    -i data/kr-vs-kp.test \
+    -md models/ \
+    -t -1
+\end{lstlisting}
+
+finally to build the csvs of the report:
+
+\begin{lstlisting}[language=bash]
+python scripts/create\_csv\_all.py
+\end{lstlisting}
+
+In the end, the models will be saved to \\ `models/dataset/\textit{model\_config}/\{model.json, feat\_counts.json, model.trees, results.txt\}`. Where the `model.json` contains the serialized object to be loaded by `ForestInterpreter`, the `feat\_counts.json` file contains the occurrences of each of the features in a node. The `results.txt` contains the train and test accuracies for the model. The `model.trees` contains a text representation of the trees for that model. f.i:
+
+\begin{verbatim}
+Tree 0:
+(safety == low)
+├t─ {'unacc': 1.0}
+└f─ (safety == high)
+    ├t─ {'unacc': 0.48, 'acc': 0.36, 'vgood': 0.11, 'good': 0.05}
+    └f─ {'unacc': 0.61, 'acc': 0.31, 'good': 0.07}
+
+
+
+
+
+Tree 1:
+(doors == 3)
+├t─ {'unacc': 0.71, 'acc': 0.23, 'good': 0.03, 'vgood': 0.03}
+└f─ (doors == 2)
+    ├t─ {'unacc': 0.75, 'acc': 0.19, 'good': 0.04, 'vgood': 0.02}
+    └f─ (doors == 5more)
+        ├t─ {'unacc': 0.66, 'acc': 0.25, 'good': 0.04, 'vgood': 0.04}
+        └f─ {'unacc': 0.69, 'acc': 0.22, 'vgood': 0.05, 'good': 0.04}
+
+
+Tree 2:
+(lug_boot == small)
+├t─ {'unacc': 0.77, 'acc': 0.21, 'good': 0.03}
+└f─ (lug_boot == med)
+    ├t─ {'unacc': 0.68, 'acc': 0.22, 'good': 0.05, 'vgood': 0.04}
+    └f─ {'unacc': 0.65, 'acc': 0.24, 'vgood': 0.07, 'good': 0.04}
+\end{verbatim}
