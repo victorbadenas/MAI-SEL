@@ -1,0 +1,26 @@
+\section{Introduction}
+
+In this work, whe have implemented and tested a version of \textit{RandomForestClassifier} and \textit{DecisionForestClassifier}. Both approaches are quite similar and have a lot of common concepts, that is why they have been developed in an OOP style following some SOLID principles. The algorithms have been tested for the required configurations which as a reminder are:
+
+\begin{enumerate}
+    \item Random Forest Classifier
+    \begin{enumerate}
+        \item $NT = 1, 10, 25, 50, 75, 100$
+        \item $F = 1, 3, log2(M+1), \sqrt{M}$
+    \end{enumerate}
+    \item Decision Forest Classifier
+    \begin{enumerate}
+        \item $NT = 1, 10, 25, 50, 75, 100$
+        \item $F = int(M/4), int(M/2), int(3*M/4), RU(1, M)$
+    \end{enumerate}
+\end{enumerate}
+
+Where RU stands for a random uniform value between 1 and M. The previous combinations have been tested on UCI Datasets. The datasets chosen for this experiments are:
+
+\begin{enumerate}
+    \item iris ($< 500$)
+    \item car ($500 < n\_instances < 2000$)
+    \item kr-vs-kp ($> 2000$)
+\end{enumerate}
+
+The datasets will be explained later on in the report. Finally we will comment the results extracted from the models, the times for each task, accuracies and the most relevant features.

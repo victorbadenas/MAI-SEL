@@ -1,0 +1,104 @@
+In this chapter we will discuss the base classes for all Classifiers as well as the particularities of each of the two classifiers implemented for this work. The implementation of the Classifiers is segmented in several parts:
+
+\begin{enumerate}
+    \item BaseClassifier (\textit{./src/base\_classifier.py})
+    \item ForestInterpreter (\textit{./src/forest\_interpreter.py})
+    \item Node, Tree, Leaf: all of them inherit from BaseClassifier (\textit{./src/tree\_units.py})
+    \item BaseForest: inherits from BaseClassifier and ForestInterpreter (\textit{./src/base\_forest.py})
+    \item RandomForestClassifier: inherits from BaseForest (\textit{./src/random\_forest.py})
+    \item DecisionForestClassifier: inherits from BaseForest (\textit{./src/decision\_forest.py})
+\end{enumerate}
+
+The \textit{BaseClassifier} is an abstract class implementing the fit, predict and fit\_predict methods for the classes that inherit from it. \textit{ForestInterpreter} implements the loading and inference methods to create a Forest from a model previously saved as json. The \textit{Node, Tree and Leaf} classes are the main units of the building of a tree structure and they all inherit from \textit{BaseClassifier} as they need fit and predict methods. Then the \textit{BaseForest} class inherits from \textit{BaseClassifier} and \textit{ForestInterpreter}. The first for the basic train methods and the later for inference. Finally the two \textit{ForestClassifiers} inherit from \textit{BaseForest} and will each implement their distinguishable features.
+
+
+\section{Leaf}
+
+The class \textit{Leaf} implements the basic termination of a Tree structure. The main concept behind it is that once a branch of the tree has been terminated, will imply that a prediction has to be made for that instance and so, when in training we reach a leaf, we need to compute the probability for the instance to be of a class. For that we store the probability ccomputed as the count of class instances for the instances that reach the Leaf in the node divided by the number of instances in the leaf. When predicting, a dictionary containing the class names and the probability will be returned.
+
+\section{Node/Tree}
+
+The \textit{Node} and \textit{Tree} class are equivalent. However, the tree class is instantiated by the Classifiers while the Node is only instantiated by the Tree or another Node. The class is responsible for multiple actions as defined by the following methods:
+
+\subsection{fit}
+
+The goal of this method is to determine the best split of the node and determine the two branches if is not feasible to split the data anymore, a return statement forces the parent node to terminate that Node attempt with a Leaf. The main process for the training of the node is as follows:
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{self}
+    X := data for the node\;
+    F := number of random features\;
+    attributes := dataset attributes\;
+    node\_gini := gini\_index(X)\;
+    best\_gain := 0\;
+    best\_feature, best\_value := None, None\;
+    \eIf{$F<0$ or $len(attributes)<F$}{
+        features := attributes
+    }{
+        features := K random attributes
+    }
+    \For{feature in features}{
+        \For(){unique value in feature column in X}{
+            true\_split, false\_split = try to split by the condition. $feature == value$ for categorical and $feature >= value$ for numerical\;
+            \If{$len(true\_split) == 0$ or $len(false\_split) == 0$}{
+                skip to next value as it does not split the data\;
+            }
+            gain := node\_gini - split\_gain(true\_split, false\_split)\;
+            \If{$gain > best\_gain$}{
+                best\_feature := feature\;
+                best\_value := value\;
+                best\_gain := gain\;
+            }
+        }
+    }
+    true\_split, false\_split := split(X, best\_value, best\_feature)\;
+    // initialize both branches from the node. If the split only contains one item, create leaf instead and finally call recursively the node\.fit method. If the method returns a None, replace the newly created node with a Leaf instead to terminate the process.\;
+    branches[True] := initialize\_branch(true\_split)\;
+    branches[False] := initialize\_branch(false\_split)\;
+    \caption{Node/Tree fit method}
+\end{algorithm}
+
+The algorithm above is implemented on the Node/Tree. First, the data for the node $X$, the number of random features to $F$ and dataset attributes $attributes$. Then we compute the gini\_index for the instances in $X$. The gini\_index is computed efficiently using pandas following the following expression:
+
+$$Gini(X) = 1 - \sum_{i=0}^{N} (\frac {X_{x \in C_i}} {len(X)})^2$$
+
+after computing the gini\_index of the data in the node, a set of $F$ features are chosen from the dataset attributes. If there are not enough attributes, all attributes will be used. Also, if $F < 0$, all attributes will be considered. For each feature considered, all (feature, value) pairs in the dataset are tested and the gini index gain is computed for all and the split condition with the highest gain is chosen to be the condition for this node.
+
+Once the condition is set, the branches are then initialized. There are 3 scenarios:
+\begin{enumerate}
+    \item the number of instances is 1 for a given split. Then the branch is initialized to a Leaf.
+    \item the branch is initialized as a Node but no gain is found in further splitting the data. Then the branch is initialized to a Leaf.
+    \item the branch is initialized to a Node and it fits approppiately. We then continue creating nodes recursively.
+\end{enumerate}
+
+\subsection{predict}
+
+The predict method in the Node will evaluate the condition and then return whatever the branch returns recursively. This way we can return the dictionary containing the probabilities provided by the Leaf of the tree.
+
+\section{ForestInterpreter}
+
+The forest interpreter class contains the main loading and prediction methods for any BaseForest type of Classifier. The most interesting method for the class is the \textit{predict} method. The predict method will ask the prediction for each instance to each tree and then average the probabilities for each of the class in order to get the most probable class for each instance of the dataset. It will call the predict method for each tree in the classifier. 
+The class was optimized using the python package \textit{multiprocessing} which allows us to generate a pool of threads that run a function's code for each item in a list. This way we can paralellize the computation of the predictions for each three among the desired number of jobs using:
+
+
+\begin{lstlisting}[language=Python]
+import multiprocessing as mp
+from functools import partial
+with mp.Pool(self.n_jobs) as p:
+    predictions = list(p.map(partial(self._predict_tree, X=X), self.trees))
+\end{lstlisting}
+
+
+\section{BaseForest}
+
+The main class for the ForestClassifiers. Implements the main fit methods for generating the trees from the train dataset. Also implements the methods to save the Classifiers as json objects. 
+The fit method initializes the dataset characteristics and then creates NT trees and calls the fit method for each one of them. The same optimization that was done in the predict function in the ForestInterpreter class was done here, where each tree is fitted in a different thread to be able to paralellize the computation.
+
+\section{DecisionForestClassifier}
+
+The first final object is the DecisionForestClassifier, which inherits from BaseForest all the base methods for inference and training. The functions that the class implements is the \textit{\_fit\_tree} method. In the case of the DecisionForestClassifier, the method first generates a dataset with F columns chosen at random from the dataset attributes. Once this dataset is generated, a tree is fitted with the newly constructed dataset where the per-node selection parameter $F$ is set to -1 to exhaustively search for all (feature, value) pairs of the instances at each node.
+
+\section{RandomForestClassifier}
+
+Finally the RandomForestClassifier, which also inherits from BaseForest for the same reasons as DecisionForestClassifier, is implemented. Similarly to the DecisionForestClassifier, it only implements the \textit{\_fit\_tree} method, which generates a bootstrapped dataset with the same number of instances as the original dataset. Then initializes the tree where the $F$ value is set to the $F$ value of the RandomForestClassifier to explore only $F$ features at each node.
