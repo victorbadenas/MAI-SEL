@@ -24,7 +24,7 @@ MODELS = {
 }
 
 MODEL_F = {
-    "RandomForestClassifier": lambda i: set([1, 3, int(np.log2(i + 1)), int(np.sqrt(i))]),
+    "RandomForestClassifier": lambda i: set([1, 3, int(np.log2(i) + 1), int(np.sqrt(i))]),
     "DecisionForestClassifier": lambda i: list(set([int(.25*i), int(.5*i), int(.75*i)])) + ['random'],
     "RF": lambda i: set([1, 3, int(np.log2(i + 1)), int(np.sqrt(i))]),
     "DF": lambda i: list(set([int(.25*i), int(.5*i), int(.75*i)])) + ['random']
